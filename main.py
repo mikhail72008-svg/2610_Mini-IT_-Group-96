@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QStackedWidget
 
@@ -68,3 +69,17 @@ window = MainWindow()
 window.show()
 sys.exit(app.exec_())
 
+=======
+from PyQt5.QtWidgets import QApplication, QLabel
+
+app = QApplication([])
+label = QLabel("App is working!")
+label.show()
+app.exec_()
+
+from database import create_tables
+
+create_tables()
+
+print("Database ready!")
+>>>>>>> 903aa3be63a8ff8820a2dce06bf2ba533db0c29d
