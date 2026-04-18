@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Threads UI</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+ 
+    .app { display: flex; height: 100vh; background: #f5f5f5; }
+ 
+    /* Sidebar */
+    .sidebar {
+      width: 72px; display: flex; flex-direction: column; align-items: center;
+      padding: 16px 0; gap: 8px; background: #fff;
+      border-right: 0.5px solid rgba(0,0,0,0.12);
+    }
+    .logo { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+    .logo svg { width: 28px; height: 28px; fill: #1a1a1a; }
+    .nav-item {
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+      border-radius: 12px; cursor: pointer; transition: background 0.15s; color: #888;
+    }
+    .nav-item:hover { background: #f0f0f0; color: #1a1a1a; }
+    .nav-item.active { color: #1a1a1a; }
+    .nav-item svg { width: 22px; height: 22px; }
+    .nav-spacer { flex: 1; }
+    .avatar-small { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #f0a, #a0f); }
+ 
+    /* Feed */
+    .feed {
+      flex: 1; overflow-y: auto; border-right: 0.5px solid rgba(0,0,0,0.12);
+      max-width: 620px; background: #fff;
+    }
+    .feed-header {
+      padding: 16px 20px 12px; border-bottom: 0.5px solid rgba(0,0,0,0.12);
+      position: sticky; top: 0; background: #fff; z-index: 10;
+    }
+    .feed-header h2 { font-size: 16px; font-weight: 600; color: #1a1a1a; }
+    .feed-tabs { display: flex; gap: 24px; margin-top: 12px; }
+    .feed-tab {
+      font-size: 14px; color: #888; cursor: pointer;
+      padding-bottom: 8px; border-bottom: 2px solid transparent;
+    }
+    .feed-tab.active { color: #1a1a1a; font-weight: 600; border-bottom-color: #1a1a1a; }
+ 
+    .compose-bar {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px 20px; border-bottom: 0.5px solid rgba(0,0,0,0.12);
+    }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; }
+    .compose-input { flex: 1; }
+    .compose-input p { font-size: 15px; color: #aaa; padding-top: 6px; cursor: text; }
+    .compose-actions { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+    .compose-icon { width: 18px; height: 18px; color: #aaa; cursor: pointer; }
+    .post-btn {
+      margin-left: auto; font-size: 14px; font-weight: 600; color: #888;
+      cursor: pointer; padding: 6px 14px; border: 0.5px solid rgba(0,0,0,0.2);
+      border-radius: 8px; background: transparent;
+    }
+    .post-btn:hover { background: #f0f0f0; }
+ 
+    /* Thread Post */
+    .thread-post {
+      padding: 16px 20px; border-bottom: 0.5px solid rgba(0,0,0,0.12);
+      display: flex; gap: 12px;
+    }
+    .thread-line-wrap { display: flex; flex-direction: column; align-items: center; }
+    .thread-line { width: 2px; background: rgba(0,0,0,0.15); flex: 1; margin: 4px 0; border-radius: 1px; }
+    .post-content { flex: 1; min-width: 0; }
+    .post-header { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+    .post-name { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+    .post-time { font-size: 13px; color: #aaa; margin-left: auto; }
+    .post-text { font-size: 15px; color: #1a1a1a; line-height: 1.5; margin-bottom: 10px; }
+    .post-image {
+      width: 100%; border-radius: 10px; height: 180px; margin-bottom: 10px;
+      background: #f0f0f0; display: flex; align-items: center;
+      justify-content: center; color: #aaa; font-size: 13px;
+    }
+    .post-actions { display: flex; gap: 16px; align-items: center; }
+    .action-btn {
+      display: flex; align-items: center; gap: 5px; font-size: 13px;
+      color: #888; cursor: pointer; transition: color 0.15s;
+      background: none; border: none; padding: 0;
+    }
+    .action-btn:hover { color: #1a1a1a; }
+    .action-btn svg { width: 18px; height: 18px; }
+    .action-btn.liked { color: #e0245e; }
+ 
+    .replies-row { display: flex; align-items: center; margin-top: 8px; }
+    .reply-avatar {
+      width: 20px; height: 20px; border-radius: 50%;
+      margin-left: -6px; border: 2px solid #fff;
+    }
+    .reply-avatar:first-child { margin-left: 0; }
+    .replies-text { font-size: 13px; color: #aaa; margin-left: 8px; }
+ 
+    /* Verified badge */
+    .verified { width: 14px; height: 14px; color: #0095f6; flex-shrink: 0; }
+ 
+    /* Right panel */
+    .right-panel { width: 300px; padding: 20px 16px; display: flex; flex-direction: column; gap: 20px; background: #f5f5f5; }
+    .panel-card {
+      background: #fff; border-radius: 12px;
+      border: 0.5px solid rgba(0,0,0,0.1); padding: 14px;
+    }
+    .panel-title { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 12px; }
+    .suggest-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .suggest-info { flex: 1; min-width: 0; }
+    .suggest-name { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+    .suggest-handle { font-size: 12px; color: #aaa; }
+    .follow-btn {
+      font-size: 13px; font-weight: 600; color: #1a1a1a;
+      border: 0.5px solid rgba(0,0,0,0.3); border-radius: 8px;
+      padding: 5px 12px; cursor: pointer; background: transparent; white-space: nowrap;
+    }
+    .follow-btn:hover { background: #f0f0f0; }
+    .trending-item { margin-bottom: 10px; }
+    .trending-tag { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+    .trending-count { font-size: 12px; color: #aaa; margin-top: 1px; }
+ 
+    @media (max-width: 900px) { .right-panel { display: none; } }
+    @media (max-width: 600px) { .sidebar { width: 56px; } }
+  </style>
+</head>
+<body>
+ 
+<div class="app">
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="logo">
+      <svg viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+        <path d="M141.537 88.988c-.49-.023-.98-.040-1.471-.040-18.204 0-31.247 7.466-38.462 13.375-.66.531-1.294 1.064-1.905 1.600v-1.935h-17.376v53.612h17.376V128.33c0-13.49 9.44-23.037 23.3-23.565 1.13-.04 2.248-.043 3.355-.009v-15.768zM96 63.297c0 0 14.736-1.264 25.77-9.72l10.83-8.577C122.84 41 116.2 38 96 38c-35.346 0-64 28.654-64 64s28.654 64 64 64c24.568 0 46.004-13.875 57.142-34.373h-17.793C127.78 143.42 112.91 150 96 150c-28.72 0-52-23.28-52-52s23.28-52 52-52z"/>
+      </svg>
+    </div>
+    <div class="nav-item active" title="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+    <div class="nav-item" title="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </div>
+    <div class="nav-item" title="New Thread">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </div>
+    <div class="nav-item" title="Activity">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div>
+    <div class="nav-spacer"></div>
+    <div class="nav-item" title="Profile">
+      <div class="avatar-small"></div>
+    </div>
+  </nav>
+ 
+  <!-- Feed -->
+  <main class="feed">
+    <div class="feed-header">
+      <h2>Threads</h2>
+      <div class="feed-tabs">
+        <div class="feed-tab active">For you</div>
+        <div class="feed-tab">Following</div>
+      </div>
+    </div>
+ 
+    <!-- Compose bar -->
+    <div class="compose-bar">
+      <div class="avatar" style="background: linear-gradient(135deg,#f0a,#a0f)"></div>
+      <div class="compose-input">
+        <p>What's new?</p>
+        <div class="compose-actions">
+          <svg class="compose-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <svg class="compose-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <button class="post-btn">Post</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Post 1 -->
+    <div class="thread-post">
+      <div class="thread-line-wrap">
+        <div class="avatar" style="background: linear-gradient(135deg,#0af,#05f)"></div>
+        <div class="thread-line"></div>
+      </div>
+      <div class="post-content">
+        <div class="post-header">
+          <span class="post-name">zuck</span>
+          <svg class="verified" viewBox="0 0 24 24" fill="#0095f6"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="post-time">2h</span>
+        </div>
+        <p class="post-text">Threads is now over 350 million monthly actives. Growing faster than any other social app we've built. Big year ahead.</p>
+        <div class="post-actions">
+          <button class="action-btn liked" data-type="like">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            48.2K
+          </button>
+          <button class="action-btn" data-type="reply">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            12.4K
+          </button>
+          <button class="action-btn" data-type="repost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+            5.1K
+          </button>
+        </div>
+        <div class="replies-row">
+          <div class="reply-avatar" style="background: linear-gradient(135deg,#fa0,#f50)"></div>
+          <div class="reply-avatar" style="background: linear-gradient(135deg,#0f9,#07a)"></div>
+          <div class="reply-avatar" style="background: linear-gradient(135deg,#f0f,#70f)"></div>
+          <span class="replies-text">12,418 replies</span>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Post 2 -->
+    <div class="thread-post">
+      <div class="thread-line-wrap">
+        <div class="avatar" style="background: linear-gradient(135deg,#fa0,#f50)"></div>
+        <div class="thread-line"></div>
+      </div>
+      <div class="post-content">
+        <div class="post-header">
+          <span class="post-name">natgeo</span>
+          <svg class="verified" viewBox="0 0 24 24" fill="#0095f6"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="post-time">4h</span>
+        </div>
+        <p class="post-text">The deep ocean covers more than 60% of Earth's surface — yet we've only mapped about 20% of it in high resolution. There are entire mountain ranges down there we've never seen.</p>
+        <div class="post-image">📷 Ocean depth visualization</div>
+        <div class="post-actions">
+          <button class="action-btn" data-type="like">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            9.7K
+          </button>
+          <button class="action-btn" data-type="reply">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            2.3K
+          </button>
+          <button class="action-btn" data-type="repost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+            881
+          </button>
+        </div>
+        <div class="replies-row">
+          <div class="reply-avatar" style="background: linear-gradient(135deg,#0af,#05f)"></div>
+          <div class="reply-avatar" style="background: linear-gradient(135deg,#f0a,#a0f)"></div>
+          <span class="replies-text">2,304 replies</span>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Post 3 -->
+    <div class="thread-post">
+      <div class="thread-line-wrap">
+        <div class="avatar" style="background: linear-gradient(135deg,#0f9,#07a)"></div>
+      </div>
+      <div class="post-content">
+        <div class="post-header">
+          <span class="post-name">sama</span>
+          <span class="post-time">6h</span>
+        </div>
+        <p class="post-text">the thing about AGI is that we genuinely don't know what the world looks like 10 years from now. everything is on the table. best to stay humble and keep shipping.</p>
+        <div class="post-actions">
+          <button class="action-btn" data-type="like">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            31.5K
+          </button>
+          <button class="action-btn" data-type="reply">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            7.8K
+          </button>
+          <button class="action-btn" data-type="repost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+            4.2K
+          </button>
+        </div>
+        <div class="replies-row">
+          <div class="reply-avatar" style="background: linear-gradient(135deg,#f0a,#a0f)"></div>
+          <div class="reply-avatar" style="background: linear-gradient(135deg,#fa0,#f50)"></div>
+          <div class="reply-avatar" style="background: linear-gradient(135deg,#0af,#05f)"></div>
+          <span class="replies-text">7,802 replies</span>
+        </div>
+      </div>
+    </div>
+  </main>
+ 
+  <!-- Right panel -->
+  <aside class="right-panel">
+    <div class="panel-card">
+      <div class="panel-title">Suggested for you</div>
+      <div class="suggest-item">
+        <div class="avatar" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f0f,#70f)"></div>
+        <div class="suggest-info">
+          <div class="suggest-name">mosseri</div>
+          <div class="suggest-handle">Head of Instagram</div>
+        </div>
+        <button class="follow-btn">Follow</button>
+      </div>
+      <div class="suggest-item">
+        <div class="avatar" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#fa0,#f06)"></div>
+        <div class="suggest-info">
+          <div class="suggest-name">priyankachopra</div>
+          <div class="suggest-handle">Actress & producer</div>
+        </div>
+        <button class="follow-btn">Follow</button>
+      </div>
+      <div class="suggest-item">
+        <div class="avatar" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0af,#05f)"></div>
+        <div class="suggest-info">
+          <div class="suggest-name">lexfridman</div>
+          <div class="suggest-handle">Researcher & podcaster</div>
+        </div>
+        <button class="follow-btn">Follow</button>
+      </div>
+    </div>
+    <div class="panel-card">
+      <div class="panel-title">Trending threads</div>
+      <div class="trending-item">
+        <div class="trending-tag">#AGI</div>
+        <div class="trending-count">128K threads</div>
+      </div>
+      <div class="trending-item">
+        <div class="trending-tag">#OpenSource</div>
+        <div class="trending-count">74K threads</div>
+      </div>
+      <div class="trending-item">
+        <div class="trending-tag">#DeepOcean</div>
+        <div class="trending-count">41K threads</div>
+      </div>
+    </div>
+  </aside>
+</div>
+ 
+<script>
+  // Tab switching
+  document.querySelectorAll('.feed-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.feed-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+ 
+  // Like toggle
+  document.querySelectorAll('.action-btn[data-type="like"]').forEach(btn => {
+    btn.addEventListener('click', () => btn.classList.toggle('liked'));
+  });
+ 
+  // Follow toggle
+  document.querySelectorAll('.follow-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.textContent === 'Follow') {
+        btn.textContent = 'Following';
+        btn.style.color = '#aaa';
+      } else {
+        btn.textContent = 'Follow';
+        btn.style.color = '';
+      }
+    });
+  });
+ 
+  // Nav active state
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+</script>
+ 
+</body>
+</html>
