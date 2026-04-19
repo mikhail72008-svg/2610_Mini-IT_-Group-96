@@ -1,0 +1,237 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden; 
+}
+
+/* --- Layout Structure --- */
+.app-background {
+    background-color: #212529; 
+    width: 100vw;  
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; 
+}
+
+.main-container {
+    background-color: #ffffff; 
+    width: 100%;   
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+}
+
+/* --- Header Styling --- */
+header {
+    padding: 20px 30px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    margin-bottom: 15px;
+}
+
+.logo .red { color: #dc3545; }
+.logo .blue { color: #0d6efd; }
+.logo .green { color: #198754; }
+
+.tabs {
+    display: flex;
+    gap: 15px;
+    font-size: 16px;
+    color: #495057;
+}
+
+
+.tab-item {
+    position: relative;
+    padding-bottom: 5px; 
+    cursor: pointer;
+}
+
+.tab-item.active {
+    font-weight: bold;
+    color: #000000;
+    cursor: default;
+}
+
+.tab-item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px; 
+    background-color: #000000;
+    transform: scaleX(0); 
+    transition: transform 0.2s ease-in-out;
+    transform-origin: center; 
+}
+
+.tab-item:hover::after {
+    transform: scaleX(1);
+}
+
+.tab-item.active::after {
+    transform: scaleX(1);
+}
+
+.tab-item.active {
+    font-weight: bold;
+    color: #000000;
+    cursor: default;
+}
+
+.tab-item:not(.active) {
+    cursor: pointer;
+}
+
+.header-line {
+    margin-top: 15px;
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.content-wrapper {
+    flex: 1; 
+    display: flex;
+}
+
+.sidebar {
+    width: 80px; 
+    background-color: #ffffff;
+    border-right: 1px solid #dee2e6; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.icon-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
+
+.icon-link {
+    text-decoration: none;
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #e9ecef; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #212529; 
+    cursor: pointer;
+    transition: background-color 0.2s; 
+    position: relative; 
+}
+
+.icon-circle:hover {
+    background-color: #dee2e6; 
+}
+
+/* --- Main Content Area --- */
+.content-area {
+    flex: 1; 
+    background-color: #ffffff;
+    position: relative; 
+}
+
+/* --- Plus Icon Styling --- */
+.plus-icon {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-size: 36px;
+    color: #212529;
+    cursor: pointer;
+}
+
+/* --- CSS Hover Tooltips --- */
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 65px;
+    background-color: #212529;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none; 
+    z-index: 100;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.plus-icon[data-tooltip]::after {
+    left: auto;
+    right: 50px;
+    bottom: 10px;
+}
+
+/* --- Login & Register Styling --- */
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #212529;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.auth-button:hover {
+    background-color: #000;
+}
+
+.auth-footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #6c757d;
+}
