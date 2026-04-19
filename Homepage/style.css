@@ -193,3 +193,45 @@ header {
     right: 50px;
     bottom: 10px;
 }
+
+/* --- Login & Register Styling --- */
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #212529;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.auth-button:hover {
+    background-color: #000;
+}
+
+.auth-footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #6c757d;
+}
