@@ -7,6 +7,7 @@ def create_tables():
     conn = connect()
     cursor = conn.cursor()
 
+    # USERS TABLE
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -15,6 +16,7 @@ def create_tables():
     )
     """)
 
+    # POSTS TABLE
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS posts (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,6 +26,7 @@ def create_tables():
     )
     """)
 
+    # LIKES TABLE
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS likes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,

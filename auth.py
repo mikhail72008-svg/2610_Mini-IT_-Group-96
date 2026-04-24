@@ -1,16 +1,23 @@
 from database import connect
+import sqlite3
 
 def register_user(username, password):
     conn = connect()
     cursor = conn.cursor()
 
-    cursor.execute(
-        "INSERT INTO users (username, password) VALUES (?, ?)",
-        (username, password)
-    )
+    try:
+        cursor.execute(
+            "INSERT INTO users (username, password) VALUES (?, ?)",
+            (username, password)
+        )
+        conn.commit()
+        print("User registered successfully")
 
-    conn.commit()
+    except sqlite3.IntegrityError:
+        print("Username already exists")
+
     conn.close()
+
 
 def login_user(username, password):
     conn = connect()
@@ -23,4 +30,4 @@ def login_user(username, password):
 
     user = cursor.fetchone()
     conn.close()
-    return user 
+    return user
