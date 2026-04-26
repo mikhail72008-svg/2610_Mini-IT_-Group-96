@@ -20,6 +20,6 @@ def login():
 
 @app.route("/feed")
 def feed():
-    return "Feed Page"
+    return render_template("feed.html", username=username)
 
 app.run(debug=True)
