@@ -331,3 +331,73 @@ a {
 .profile-stats strong {
     color: black;
 }
+
+/* --- Map Hotspots --- */
+/* Container must be relative so buttons can be absolute */
+.map-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.main-map {
+  display: block;
+  width: 100%; /* Or fixed width if preferred */
+  height: auto;
+}
+
+/* Style for the clickable numbers */
+.hotspot {
+  position: absolute;
+  background: rgba(255, 255, 255, 0); /* Transparent but clickable */
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  color: transparent; /* Hide text if you just want to click the image's number */
+}
+
+/* Show a border on hover to help the user */
+.hotspot:hover {
+  border-color: yellow;
+  background: rgba(255, 255, 0, 0.3);
+}
+
+/* Modal Styling */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  width: 50%;
+  border-radius: 10px;
+}
+
+/* The Scrollable Image Container */
+.image-scroll-container {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto; /* Horizontal scroll */
+  padding: 10px;
+  scrollbar-width: thin;
+}
+
+.image-scroll-container img {
+  height: 200px;
+  border-radius: 5px;
+}
+
+/* Custom Scrollbar for the gallery */
+.image-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+.image-scroll-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
