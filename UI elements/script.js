@@ -126,9 +126,8 @@ function openGallery(facilityKey) {
   document.getElementById('galleryTitle').innerText = data.title;
   
   const container = document.getElementById('imageContainer');
-  container.innerHTML = ''; // Clear previous images
+  container.innerHTML = ''; 
 
-  // Add new images
   data.images.forEach(src => {
     const img = document.createElement('img');
     img.src = src;
@@ -140,4 +139,39 @@ function openGallery(facilityKey) {
 
 function closeGallery() {
   document.getElementById('galleryModal').style.display = "none";
+}
+
+const openEditProfileButton = document.getElementById('openEditProfile');
+const editProfileModal = document.getElementById('editProfileModal');
+const closeEditProfileButton = document.getElementById('closeEditProfile');
+const saveEditProfileButton = document.getElementById('saveEditProfile');
+
+if (openEditProfileButton && editProfileModal && closeEditProfileButton) {
+  openEditProfileButton.addEventListener('click', () => {
+    editProfileModal.classList.add('show');
+  });
+
+  closeEditProfileButton.addEventListener('click', () => {
+    editProfileModal.classList.remove('show');
+  });
+
+  editProfileModal.addEventListener('click', (event) => {
+    if (event.target === editProfileModal) {
+      editProfileModal.classList.remove('show');
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      editProfileModal.classList.remove('show');
+    }
+  });
+}
+
+if (saveEditProfileButton) {
+  saveEditProfileButton.addEventListener('click', () => {
+    document.getElementById('profileName').textContent = document.getElementById('editName').value;
+    document.getElementById('profileBio').textContent = document.getElementById('editBio').value;
+    editProfileModal.classList.remove('show');
+  });
 }

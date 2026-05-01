@@ -47,15 +47,15 @@
 
                       <div class="profile-header">
                        <img src="https://via.placeholder.com/120" alt="Profile Picture" class="profile-avatar">
-                       <a href="Profile_edit.html"><button class="edit-btn">Edit Profile</button></a>
+                       <button class="edit-btn" id="openEditProfile">Edit Profile</button>
                       </div>
 
                       <div class="profile-info">
-                        <h1 class="profile-name">Student Name</h1> <!-- Showcase name of user -->
+                        <h1 class="profile-name" id="profileName">Student Name</h1> <!-- Showcase name of user -->
                         <p class="profile-handle">@mmu_dev96</p>   <!-- Showcase email of user -->
                         
                         <!-- Showcase bio of user -->
-                        <p class="profile-bio"> 
+                        <p class="profile-bio" id="profileBio"> 
                          IT Student @ MMU Cyberjaya 💻 | Figuring out VS Code one Git push at a time. <br>
                          Always hitting the gym, benching heavy 🏋️‍♂️ | Music fueled by Spotify 🎵
                         </p>
@@ -68,8 +68,26 @@
                       </div>
 
                     </section>
+                    <div class="profile-modal" id="editProfileModal">
+                      <div class="profile-modal-content">
+                        <button class="profile-modal-close" id="closeEditProfile" aria-label="Close edit profile popup">&times;</button>
+                        <h2>Edit Profile</h2>
+
+                        <form class="profile-edit-form">
+                          <label for="editName">Name</label>
+                          <input type="text" id="editName" value="Student Name">
+
+                          <label for="editBio">Bio</label>
+                          <textarea id="editBio" rows="4">IT Student @ MMU Cyberjaya | Figuring out VS Code one Git push at a time.</textarea>
+
+                          <button type="button" class="save-profile-btn" id="saveEditProfile">Save Changes</button>
+                        </form>
+                      </div>
+                    </div>
+                </main>
             </div>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
