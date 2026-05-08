@@ -306,6 +306,26 @@ a {
     background-color: #003985;
 }
 
+.searchBtn {
+   position: fixed; 
+    bottom: 30px;    
+    right: 30px;     
+    z-index: 999;    
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #0047AB;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+.searchBtn:hover {
+    background-color: #003985;
+}
+
 .hidden {
   display: none !important;
 }
@@ -396,7 +416,7 @@ a {
 }
 
 .post-submit-btn {
-  background-color: #000000; 
+  background-color: #0047AB; 
   color: #ffffff;
   border: none;
   padding: 10px 24px;
@@ -407,7 +427,7 @@ a {
 }
 
 .post-submit-btn:hover {
-  background-color: #333333;
+  background-color: #1b58ae;
 }
 
 /* --- CSS Hover Tooltips Sidebar --- */
@@ -434,6 +454,12 @@ a {
 }
 
 .createPostBtn[data-tooltip]::after {
+    left: auto;
+    right: 70px;
+    bottom: 17px;
+}
+
+.searchBtn[data-tooltip]::after {
     left: auto;
     right: 70px;
     bottom: 17px;
@@ -515,6 +541,12 @@ a {
     position: absolute;
     top: -60px; 
     left: 15px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.profile-avatar:hover {
+    border-color: #007bff;
 }
 
 .edit-btn {
@@ -621,6 +653,28 @@ a {
 
 .save-profile-btn:hover {
     background-color: #003985;
+}
+
+.profile-pic-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.profile-pic-option {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.profile-pic-option:hover {
+    border-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+    cursor: pointer;
 }
 
 .profile-info {

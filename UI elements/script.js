@@ -177,6 +177,44 @@ if (saveEditProfileButton) {
   });
 }
 
+// Profile Picture Selection
+const profileAvatar = document.querySelector('.profile-avatar');
+const profilePicModal = document.getElementById('profilePicModal');
+const closeProfilePicModal = document.getElementById('closeProfilePicModal');
+const profilePicOptions = document.querySelectorAll('.profile-pic-option');
+
+if (profileAvatar && profilePicModal && closeProfilePicModal) {
+  profileAvatar.addEventListener('click', () => {
+    profilePicModal.classList.add('show');
+  });
+
+  closeProfilePicModal.addEventListener('click', () => {
+    profilePicModal.classList.remove('show');
+  });
+
+  profilePicModal.addEventListener('click', (event) => {
+    if (event.target === profilePicModal) {
+      profilePicModal.classList.remove('show');
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      profilePicModal.classList.remove('show');
+    }
+  });
+}
+
+if (profilePicOptions.length > 0) {
+  profilePicOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      const newSrc = option.getAttribute('data-src');
+      profileAvatar.src = newSrc;
+      profilePicModal.classList.remove('show');
+    });
+  });
+}
+
 // Post Modal Functionality
 document.addEventListener('DOMContentLoaded', () => {
   // Grab the elements
@@ -213,3 +251,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Search Button Functionality
+const searchBtn = document.getElementById('searchBtn');
+if (searchBtn) {
+  searchBtn.addEventListener('click', () => {
+    window.location.href = 'Search.html';
+  });
+}
