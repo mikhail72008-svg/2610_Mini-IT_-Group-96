@@ -26,7 +26,6 @@
                       <a href="Search.html" class="icon-circle" data-tooltip="Search"><i class="bi bi-search"></i></a>
                       <a href="Homepage.html" class="icon-circle" data-tooltip="Home"><i class="bi bi-house"></i></a>
                       <a href="Trending.html" class="icon-circle" data-tooltip="Trending"><i class="bi bi-fire"></i></a>
-                      <a href="Activity.html" class="icon-circle" data-tooltip="Activity"><i class="bi bi-heart"></i></a>
                       <a href="Profile.html" class="icon-circle" data-tooltip="Profile"><i class="bi bi-person"></i></a>
                       <a href="Map.html" class="icon-circle" data-tooltip="Map"><i class="bi bi-geo-alt"></i></a>
                     </div>
@@ -34,12 +33,93 @@
 
                 <!-- Main Content Area -->
                 <main class="content-area">
-                    <div class="plus-icon">
+
+                    <!-- Feed Area -->
+                    <section class="feed-container">
+                        <div class="feed-page-title">
+                            <h1>Trending</h1>
+                        </div>
+
+                        <article class="feed-post">
+                            <div class="feed-avatar avatar-red"><i class="bi bi-fire"></i></div>
+                            <div class="feed-post-body">
+                                <div class="feed-post-header">
+                                    <strong>#CampusRun</strong>
+                                    <span>Trending in MMU</span>
+                                </div>
+                                <p>Students are forming groups for Friday's campus run. Posts about routes, timing, and meetups are picking up fast.</p>
+                                <div class="feed-actions">
+                                    <button type="button"><i class="bi bi-heart"></i><span>86</span></button>
+                                    <button type="button"><i class="bi bi-chat"></i><span>19</span></button>
+                                    <button type="button"><i class="bi bi-repeat"></i><span>14</span></button>
+                                    <button type="button"><i class="bi bi-send"></i></button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="feed-post">
+                            <div class="feed-avatar avatar-blue"><i class="bi bi-mortarboard"></i></div>
+                            <div class="feed-post-body">
+                                <div class="feed-post-header">
+                                    <strong>#FinalProject</strong>
+                                    <span>Trending in Classes</span>
+                                </div>
+                                <p>Submission week energy is here. People are sharing templates, consultation times, and last-minute survival tips.</p>
+                                <div class="feed-actions">
+                                    <button type="button"><i class="bi bi-heart"></i><span>104</span></button>
+                                    <button type="button"><i class="bi bi-chat"></i><span>31</span></button>
+                                    <button type="button"><i class="bi bi-repeat"></i><span>22</span></button>
+                                    <button type="button"><i class="bi bi-send"></i></button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="feed-post">
+                            <div class="feed-avatar avatar-green"><i class="bi bi-geo-alt"></i></div>
+                            <div class="feed-post-body">
+                                <div class="feed-post-header">
+                                    <strong>#LibrarySpot</strong>
+                                    <span>Trending near Library</span>
+                                </div>
+                                <p>Quiet corners, charger locations, and the best tables are suddenly everyone's favorite topic.</p>
+                                <div class="feed-actions">
+                                    <button type="button"><i class="bi bi-heart"></i><span>73</span></button>
+                                    <button type="button"><i class="bi bi-chat"></i><span>16</span></button>
+                                    <button type="button"><i class="bi bi-repeat"></i><span>9</span></button>
+                                    <button type="button"><i class="bi bi-send"></i></button>
+                                </div>
+                            </div>
+                        </article>
+                    </section>
+
+                    <div id="createPostBtn" class="createPostBtn" data-tooltip="New Post">
                         <i class="bi bi-plus-lg"></i>
                     </div>
                 </main>
             </div>
         </div>
     </div>
+
+    <!-- Post Functionality -->
+    <div id="postModalOverlay" class="modal-overlay hidden">
+  <div class="post-modal">
+    
+    <div class="modal-header">
+      <h3>New Post</h3>
+      <button id="closeModalBtn" class="close-btn">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="avatar-placeholder"></div>
+      <textarea placeholder="Post something..." rows="4"></textarea>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="post-submit-btn">Post</button>
+    </div>
+    
+  </div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

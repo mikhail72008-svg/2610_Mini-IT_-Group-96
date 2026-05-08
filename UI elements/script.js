@@ -121,6 +121,7 @@ const facilityData = {
   },
 };
 
+// MMU map images of facilities
 function openGallery(facilityKey) {
   const data = facilityData[facilityKey];
   document.getElementById('galleryTitle').innerText = data.title;
@@ -175,3 +176,40 @@ if (saveEditProfileButton) {
     editProfileModal.classList.remove('show');
   });
 }
+
+// Post Modal Functionality
+document.addEventListener('DOMContentLoaded', () => {
+  // Grab the elements
+  const createPostBtn = document.getElementById('createPostBtn');
+  const postModalOverlay = document.getElementById('postModalOverlay');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const composerPostButtons = document.querySelectorAll('.composer-post-btn');
+
+  if (!createPostBtn || !postModalOverlay || !closeModalBtn) {
+    return;
+  }
+
+  const openPostModal = () => {
+    postModalOverlay.classList.remove('hidden');
+    postModalOverlay.querySelector('textarea').focus();
+  };
+
+  // 1. Show modal when the blue plus icon is clicked
+  createPostBtn.addEventListener('click', openPostModal);
+
+  composerPostButtons.forEach((button) => {
+    button.addEventListener('click', openPostModal);
+  });
+
+  // 2. Hide modal when the 'X' is clicked
+  closeModalBtn.addEventListener('click', () => {
+    postModalOverlay.classList.add('hidden');
+  });
+
+  // 3. Hide modal when clicking the dark background outside the box
+  postModalOverlay.addEventListener('click', (event) => {
+    if (event.target === postModalOverlay) {
+      postModalOverlay.classList.add('hidden');
+    }
+  });
+});
