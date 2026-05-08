@@ -259,3 +259,83 @@ if (searchBtn) {
     window.location.href = 'Search.html';
   });
 }
+
+// Search Page Functionality
+const searchInput = document.getElementById('searchInput');
+const performSearchBtn = document.getElementById('performSearchBtn');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const searchResults = document.getElementById('searchResults');
+
+let currentFilter = 'all';
+
+if (searchInput && performSearchBtn) {
+  // Search on button click
+  performSearchBtn.addEventListener('click', performSearch);
+  
+  // Search on Enter key
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+}
+
+if (filterBtns.length > 0) {
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active class from all buttons
+      filterBtns.forEach(b => b.classList.remove('active'));
+      // Add active class to clicked button
+      btn.classList.add('active');
+      currentFilter = btn.getAttribute('data-filter');
+      performSearch();
+    });
+  });
+}
+
+function performSearch() {
+  const query = searchInput.value.trim();
+  if (!query) {
+    searchResults.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">Enter a search term to find posts, users, or topics.</p>';
+    return;
+  }
+  
+  // Mock search results - in a real app, this would call an API
+  let results = [];
+  
+  if (currentFilter === 'all' || currentFilter === 'posts') {
+    results.push({
+      type: 'post',
+      title: `Posts containing "${query}"`,
+      content: 'Sample post result...'
+    });
+  }
+  
+  if (currentFilter === 'all' || currentFilter === 'users') {
+    results.push({
+      type: 'user',
+      title: `Users matching "${query}"`,
+      content: 'Sample user result...'
+    });
+  }
+  
+  if (currentFilter === 'all' || currentFilter === 'topics') {
+    results.push({
+      type: 'topic',
+      title: `Topics related to "${query}"`,
+      content: 'Sample topic result...'
+    });
+  }
+  
+  // Display results
+  if (results.length === 0) {
+    searchResults.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">No results found.</p>';
+  } else {
+    searchResults.innerHTML = results.map(result => `
+      <div class="search-result-item" style="padding: 20px; border-bottom: 1px solid #dee2e6;">
+        <div style="font-weight: bold; margin-bottom: 8px;">${result.title}</div>
+        <div style="color: #6c757d;">${result.content}</div>
+      </div>
+    `).join('');
+  }
+}
