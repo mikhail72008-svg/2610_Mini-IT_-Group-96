@@ -1,5 +1,4 @@
 from database import connect
-import sqlite3
 
 def register_user(username, password):
     conn = connect()
@@ -11,12 +10,11 @@ def register_user(username, password):
             (username, password)
         )
         conn.commit()
-        print("User registered successfully")
-
-    except sqlite3.IntegrityError:
-        print("Username already exists")
-
-    conn.close()
+        return {"status": "success", "message": "User registered"}
+    except:
+        return {"status": "error", "message": "Username already exists"}
+    finally:
+        conn.close()
 
 
 def login_user(username, password):
@@ -30,4 +28,8 @@ def login_user(username, password):
 
     user = cursor.fetchone()
     conn.close()
-    return user
+
+    if user:
+        return {"status": "success", "user": user}
+    else:
+        return {"status": "error", "message": "Invalid credentials"}
