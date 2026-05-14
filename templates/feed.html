@@ -2,4 +2,30 @@
 
 <h3>Welcome, {{ username }}</h3>
 
-<a href="/">Logout</a>
+<form method="POST">
+    <input name="content" placeholder="Write something...">
+    <button type="submit">Post</button>
+</form>
+
+<h3>Posts:</h3>
+
+{% for post in posts %}
+    <div style="border:1px solid black; padding:8px; margin:5px;">
+        <b>{{ post.user }}</b>: {{ post.content }}
+    </div>
+{% endfor %}
+
+<br>
+
+<a href="#" onclick="confirmLogout()">Logout</a>
+
+<script>
+function confirmLogout() {
+    let choice = confirm("Are you sure you want to logout?");
+    if (choice) {
+        window.location.href = "/logout";  // YES → logout
+    } else {
+        // NO → do nothing
+    }
+}
+</script>
