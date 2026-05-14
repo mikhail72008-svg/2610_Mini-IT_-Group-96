@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMUHUB Profile Page</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <!-- MMUHUB Logo-->
+    <div class="app-background">
+        <div class="main-container">
+            <header>
+                <div class="logo">
+                    <span class="red">MM</span><span class="blue">U</span><span class="green">HUB</span>
+                </div>
+                <hr class="header-line">
+            </header>
+
+            <!-- Navigation Bar / Sidebar -->
+            <div class="content-wrapper">
+                <aside class="sidebar">
+                    <div class="icon-group">
+                      <a href="Search.html" class="icon-circle" data-tooltip="Search"><i class="bi bi-search"></i></a>
+                      <a href="Homepage.html" class="icon-circle" data-tooltip="Home"><i class="bi bi-house"></i></a>
+                      <a href="Trending.html" class="icon-circle" data-tooltip="Trending"><i class="bi bi-fire"></i></a>
+                      <a href="Profile.html" class="icon-circle" data-tooltip="Profile"><i class="bi bi-person"></i></a>
+                      <a href="Map.html" class="icon-circle" data-tooltip="Map"><i class="bi bi-geo-alt"></i></a>
+                    </div>
+                </aside>
+
+                <!-- Main Content Area -->
+                <main class="content-area">
+        
+                    <!-- Profile Section -->
+                    <section class="profile-container">
+    
+                     <div class="profile-banner"></div>
+
+                      <div class="profile-header">
+                       <img src="https://via.placeholder.com/120" alt="Profile Picture" class="profile-avatar">
+                       <button class="edit-btn" id="openEditProfile">Edit Profile</button>
+                      </div>
+
+                      <div class="profile-info">
+                        <h1 class="profile-name" id="profileName">Student Name</h1> <!-- Showcase name of user -->
+                        <p class="profile-handle">@mmu_dev96</p>   <!-- Showcase email of user -->
+                        
+                        <!-- Showcase bio of user -->
+                        <p class="profile-bio" id="profileBio"> 
+                         IT Student @ MMU Cyberjaya 💻 | Figuring out VS Code one Git push at a time. <br>
+                         Always hitting the gym, benching heavy 🏋️‍♂️ | Music fueled by Spotify 🎵
+                        </p>
+                       
+                        <!-- Showcase number of followers and following -->
+                       <div class="profile-stats">
+                        <span class="stat"><strong>240</strong> Following</span>
+                        <span class="stat"><strong>185</strong> Followers</span>
+                       </div>
+                      </div>
+
+                    </section>
+                    <div class="profile-modal" id="editProfileModal">
+                      <div class="profile-modal-content">
+                        <button class="profile-modal-close" id="closeEditProfile" aria-label="Close edit profile popup">&times;</button>
+                        <h2>Edit Profile</h2>
+
+                        <form class="profile-edit-form">
+                          <label for="editName">Name</label>
+                          <input type="text" id="editName" value="Student Name">
+
+                          <label for="editBio">Bio</label>
+                          <textarea id="editBio" rows="4">IT Student @ MMU Cyberjaya | Figuring out VS Code one Git push at a time.</textarea>
+
+                          <button type="button" class="save-profile-btn" id="saveEditProfile">Save Changes</button>
+                        </form>
+                      </div>
+                    </div>
+
+                    <!-- Profile Picture Selection Modal -->
+                    <div class="profile-modal" id="profilePicModal">
+                      <div class="profile-modal-content">
+                        <button class="profile-modal-close" id="closeProfilePicModal" Geometric Sans="Close profile picture selection">&times;</button>
+                        <h2>Choose Profile Picture</h2>
+                        <div class="profile-pic-options">
+                          <img src="Images/girl(default).png" alt="Profile Pic 1" class="profile-pic-option" data-src="Images/girl(default).png">
+                          <img src="Images/girl_2.png" alt="Profile Pic 2" class="profile-pic-option" data-src="Images/girl_2.png">
+                          <img src="Images/boy(default).png" alt="Profile Pic 3" class="profile-pic-option" data-src="Images/boy(default).png">
+                          <img src="Images/boy_2.png" alt="Profile Pic 4" class="profile-pic-option" data-src="Images/boy_2.png">
+                        </div>
+                      </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
