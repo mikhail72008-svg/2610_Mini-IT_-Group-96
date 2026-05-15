@@ -1,10 +1,15 @@
-from auth import register_user, login_user
+from auth import login_user
 from posts import create_post, get_all_posts
-
-print(register_user("vinay", "1234"))
+from likes import like_post, get_like_count
 
 print(login_user("vinay", "1234"))
 
-create_post(1, "My first integrated post")
+create_post(1, "Testing likes integration")
 
-print(get_all_posts())
+posts = get_all_posts()
+
+print(posts)
+
+like_post(1, 1)
+
+print(get_like_count(1))
