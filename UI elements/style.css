@@ -879,7 +879,8 @@ a {
 }
 
 .image-scroll-container img {
-  height: 200px;
+  height: 500px;
+  width:auto;
   border-radius: 5px;
 }
 

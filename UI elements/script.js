@@ -1,31 +1,31 @@
 const facilityData = {
   foe: {
     title: "Faculty of Engineering (FOE)",
-    images: ["foe1.jpg", "foe2.jpg", "foe3.jpg"]  // Replace with actual image paths
+    images: ["images/foe1.jpg", "images/foe2.jpg", "images/foe3.jpg"]  // Replace with actual image paths
   },
   fci: {
     title: "Faculty of Computing & Informatics (FCI)",
-    images: ["fci1.jpg", ""]  // Replace with actual image paths
+    images: ["images/fci1.jpg", "images/fci2.jpg"]  // Replace with actual image paths
   },
   fom: {
     title: "Faculty of Management (FOM)",
-    images: ["fom1.jpg", "fom2.jpg"]  // Replace with actual image paths
+    images: ["images/fom.jpg", "images/fom2.jpg"]  // Replace with actual image paths
   },
   fcm: {
     title: "Faculty of Creative Media (FCM)",
-    images: ["fcm1.jpg", "fcm2.jpg"]  // Replace with actual image paths
+    images: ["images/fcm.jpg"]  // Replace with actual image paths
   },
   stad: {
     title: "Students Affairs Division (STAD)",
-    images: ["stad1.jpg", "stad2.jpg"]  // Replace with actual image paths
+    images: ["images/stad.jpg"]  // Replace with actual image paths
   },
   dtc: {
     title: "Dewan Tun Canselor (DTC)",
-    images: ["dtc1.jpg", "dtc2.jpg"]  // Replace with actual image paths
+    images: ["images/dtc.png", "images/dtc2.png", "images/dtc3.png"]  // Replace with actual image paths
   },
   chancellery: {
     title: "MMU Chancellery",
-    images: ["chancellery1.jpg", "chancellery2.jpg"]  // Replace with actual image paths
+    images: ["images/chancellery.png"]  // Replace with actual image paths
   },
   fmd: {
     title: "Facilities Management Department (FMD)",
@@ -33,7 +33,7 @@ const facilityData = {
   },
   isc: {
     title: "Indoor Sports Center (ISC)",
-    images: ["isc1.jpg", "isc2.jpg"]  // Replace with actual image paths
+    images: ["images/isc.jpg", "images/isc2.jpg"]  // Replace with actual image paths
   },
   clc: {
     title: "Common Lecture Complex (CLC)",
@@ -41,47 +41,47 @@ const facilityData = {
   },
   library: {
     title: "Siti Hasmah Digital Library",
-    images: ["library1.jpg", "library2.jpg"]  // Replace with actual image paths
+    images: ["images/library2.png", "images/library3.jpg", "images/library.png"]  // Replace with actual image paths
   },
   stadium: {
     title: "MMU Stadium",
-    images: ["stadium1.jpg", "stadium2.jpg"]  // Replace with actual image paths
+    images: ["images/Stadium.png", "images/stadium2.jpg"]  // Replace with actual image paths
   },
   pool: {
     title: "Swimming Pool",
-    images: ["pool1.jpg", "pool2.jpg"]  // Replace with actual image paths
+    images: ["images/Swimmingpool2.jpg", "images/Swimmingpool.png"]  // Replace with actual image paths
   },
   vcourt: {
     title: "Volleyball / Takraw Court",
-    images: ["vcourt1.jpg", "vcourt2.jpg"]  // Replace with actual image paths
+    images: ["images/vcourt.jpg"]  // Replace with actual image paths
   },
   mosque: {
     title: "Mosque",
-    images: ["mosque1.jpg", "mosque2.jpg"]  // Replace with actual image paths
+    images: ["images/mosque.jpg", "images/mosque2.png"]  // Replace with actual image paths
   },
   theatre: {
     title: "E-Theatre",
-    images: ["theatre1.jpg", "theatre2.jpg"]  // Replace with actual image paths
+    images: ["images/theatre1.jpg", "images/theatre2.jpg"]  // Replace with actual image paths
   },
   sbcourt: {
     title: "Squash / Badminton Court",
-    images: ["sbcourt1.jpg", "sbcourt2.jpg"]  // Replace with actual image paths
+    images: ["images/sbcourt1.jpg", "images/sbcourt2.jpg"]  // Replace with actual image paths
   },
   gym: {
     title: "Gym",
-    images: ["gym1.jpg", "gym2.jpg"]  // Replace with actual image paths
+    images: ["images/Gym.png", "images/Gym2.png", "images/Gym3.png"]  // Replace with actual image paths
   },
   finance: {
     title: "Finance Department",
-    images: ["finance1.jpg", "finance2.jpg"]  // Replace with actual image paths
+    images: ["images/finance1.jpg", "images/finance2.jpg"]  // Replace with actual image paths
   },
   sad:{
     title: "Student Affairs Department (SAD)",
-    images: ["sad1.jpg", "sad2.jpg"]  // Replace with actual image paths
+    images: ["images/sad1.jpg", "images/sad2.jpg"]  // Replace with actual image paths
   },
   pu:{
     title: "Procurement unit (PU)",
-    images: ["pu1.jpg", "pu2.jpg"]  // Replace with actual image paths
+    images: ["images/pu1.jpg", "images/pu2.jpg"]  // Replace with actual image paths
   },
   cynergy:{
     title: "MMU Cynergy",
@@ -89,35 +89,35 @@ const facilityData = {
   },
   edc:{
     title: "Entrepreneurship Development Center (EDC)",
-    images: ["edc1.jpg", "edc2.jpg"]  // Replace with actual image paths
+    images: ["images/edc1.jpg", "images/edc2.jpg"]  // Replace with actual image paths
   },
   itsd:{
     title: "Information Technology Service Division (ITSD)",
-    images: ["itsd1.jpg", "itsd2.jpg"]  // Replace with actual image paths
+    images: ["images/itsd1.jpg", "images/itsd2.jpg"]  // Replace with actual image paths
   },
   ips:{
     title: "Institute of Postgraduate Studies (IPS)",
-    images: ["ips1.jpg", "ips2.jpg"]  // Replace with actual image paths
+    images: ["images/ips1.jpg", "images/ips2.jpg"]  // Replace with actual image paths
   },
   eru:{
     title: "Examination & Record Unit (ERU)",
-    images: ["eru1.jpg", "eru2.jpg"]  // Replace with actual image paths
+    images: ["images/eru1.jpg", "images/eru2.jpg"]  // Replace with actual image paths
   },  
   hrm:{
     title: "Human Resource Management (HRM)",
-    images: ["hrm1.jpg", "hrm2.jpg"]  // Replace with actual image paths
+    images: ["images/hrm1.jpg", "images/hrm2.jpg"]  // Replace with actual image paths
   },
   gsom:{
     title: "Graduate School of Management (GSOM)",
-    images: ["gsom1.jpg", "gsom2.jpg"]  // Replace with actual image paths
+    images: ["images/gsom1.jpg", "images/gsom2.jpg"]  // Replace with actual image paths
   },
   io:{
     title: "International Office (IO)",
-    images: ["io1.jpg", "io2.jpg"]  // Replace with actual image paths
+    images: ["images/io1.jpg", "images/io2.jpg"]  // Replace with actual image paths
   },
   bu:{
     title: "Business Unit (BU)",
-    images: ["bu1.jpg", "bu2.jpg"]  // Replace with actual image paths
+    images: ["images/bu1.jpg", "images/bu2.jpg"]  // Replace with actual image paths
   },
 };
 
