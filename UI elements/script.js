@@ -5,7 +5,7 @@ const facilityData = {
   },
   fci: {
     title: "Faculty of Computing & Informatics (FCI)",
-    images: ["fci1.jpg", "fci2.jpg"]  // Replace with actual image paths
+    images: ["fci1.jpg", ""]  // Replace with actual image paths
   },
   fom: {
     title: "Faculty of Management (FOM)",
@@ -85,7 +85,7 @@ const facilityData = {
   },
   cynergy:{
     title: "MMU Cynergy",
-    images: ["cynergy1.jpg", "cynergy2.jpg"]  // Replace with actual image paths
+    images: ["images/cynergy.jpg"]  // Replace with actual image paths
   },
   edc:{
     title: "Entrepreneurship Development Center (EDC)",
