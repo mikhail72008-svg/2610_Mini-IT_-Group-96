@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMUHUB Following Page</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <!-- MMUHUB Logo-->
+    <div class="app-background">
+        <div class="main-container">
+            <header>
+                <div class="logo">
+                    <span class="red">MM</span><span class="blue">U</span><span class="green">HUB</span>
+                </div>
+
+                <!-- Navigation between for you and following page -->
+                <div class="tabs">
+                    <div class="tab-item"><a href="Homepage.html">For you</a></div>
+                    <div class="tab-item active"><a href="Following.html">Following</a></div>
+                </div>
+                <hr class="header-line">
+            </header>
+
+            <!-- Navigation Bar / Sidebar -->
+            <div class="content-wrapper">
+                <aside class="sidebar">
+                    <div class="icon-group">
+                      <a href="Search.html" class="icon-circle" data-tooltip="Search"><i class="bi bi-search"></i></a>
+                      <a href="Homepage.html" class="icon-circle" data-tooltip="Home"><i class="bi bi-house"></i></a>
+                      <a href="Trending.html" class="icon-circle" data-tooltip="Trending"><i class="bi bi-fire"></i></a>
+                      <a href="Profile.html" class="icon-circle" data-tooltip="Profile"><i class="bi bi-person"></i></a>
+                      <a href="Map.html" class="icon-circle" data-tooltip="Map"><i class="bi bi-geo-alt"></i></a>
+                    </div>
+                </aside>
+
+                <!-- Main Content Area -->
+                <main class="content-area">
+
+                    <!-- Feed Area -->
+                    <section class="feed-container">
+                        <article class="feed-post">
+                            <div class="feed-avatar avatar-blue">N</div>
+                            <div class="feed-post-body">
+                                <div class="feed-post-header">
+                                    <strong>Nadia Lim</strong>
+                                    <span>@nadia</span>
+                                    <span>8m</span>
+                                </div>
+                                <p>Our study group is meeting at CLC after lunch. Bring your tutorial questions and caffeine.</p>
+                                <div class="feed-actions">
+                                    <button type="button"><i class="bi bi-heart"></i><span>15</span></button>
+                                    <button type="button"><i class="bi bi-chat"></i><span>4</span></button>
+                                    <button type="button"><i class="bi bi-repeat"></i><span>1</span></button>
+                                    <button type="button"><i class="bi bi-send"></i></button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="feed-post">
+                            <div class="feed-avatar avatar-green">I</div>
+                            <div class="feed-post-body">
+                                <div class="feed-post-header">
+                                    <strong>Imran Hakim</strong>
+                                    <span>@imran</span>
+                                    <span>27m</span>
+                                </div>
+                                <p>Just uploaded my notes for data structures. They are messy, but the examples should help.</p>
+                                <div class="feed-actions">
+                                    <button type="button"><i class="bi bi-heart"></i><span>32</span></button>
+                                    <button type="button"><i class="bi bi-chat"></i><span>8</span></button>
+                                    <button type="button"><i class="bi bi-repeat"></i><span>5</span></button>
+                                    <button type="button"><i class="bi bi-send"></i></button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="feed-post">
+                            <div class="feed-avatar avatar-red">L</div>
+                            <div class="feed-post-body">
+                                <div class="feed-post-header">
+                                    <strong>Li Wen</strong>
+                                    <span>@liwen</span>
+                                    <span>55m</span>
+                                </div>
+                                <p>FCI lobby has a booth for club signups today. Worth checking out between classes.</p>
+                                <div class="feed-actions">
+                                    <button type="button"><i class="bi bi-heart"></i><span>21</span></button>
+                                    <button type="button"><i class="bi bi-chat"></i><span>3</span></button>
+                                    <button type="button"><i class="bi bi-repeat"></i><span>4</span></button>
+                                    <button type="button"><i class="bi bi-send"></i></button>
+                                </div>
+                            </div>
+                        </article>
+                    </section>
+
+                    <!-- Create Post Button -->
+                    <div id="createPostBtn" class="createPostBtn" data-tooltip="New Post">
+                        <i class="bi bi-plus-lg"></i>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Functionality -->
+    <div id="postModalOverlay" class="modal-overlay hidden">
+  <div class="post-modal">
+    
+    <div class="modal-header">
+      <h3>New Post</h3>
+      <button id="closeModalBtn" class="close-btn">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="avatar-placeholder"></div>
+      <textarea placeholder="Post something..." rows="4"></textarea>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="post-submit-btn">Post</button>
+    </div>
+    
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
