@@ -2,12 +2,12 @@ const facilityData = {
   foe: {
     title: "Faculty of Engineering (FOE)",
     description: "Engineering faculty building and surrounding learning spaces.",
-    images: ["images/foe1.jpg", "images/foe2.jpg", "images/foe3.jpg"]  // Replace with actual image paths
+    images: ["images/foe.jpg", "images/foe1.jpg"]  // Replace with actual image paths
   },
   fci: {
     title: "Faculty of Computing & Informatics (FCI)",
     description: "Computing and informatics faculty area for classes, labs, and student activities.",
-    images: ["images/fci1.jpg", "images/fci2.jpg"]  // Replace with actual image paths
+    images: ["images/fci.jpg", "images/fci1.jpg", "images/fci2.jpg", "images/fci3.jpg", "images/fci4.jpg"]  // Replace with actual image paths
   },
   fom: {
     title: "Faculty of Management (FOM)",
