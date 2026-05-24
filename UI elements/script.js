@@ -17,7 +17,7 @@ const facilityData = {
   fcm: {
     title: "Faculty of Creative Media (FCM)",
     description: "Creative media faculty space for design, animation, and multimedia learning.",
-    images: ["images/fcm.jpg"]  
+    images: ["images/fcm.jpg", "images/fcm2.jpg"]  
   },
   stad: {
     title: "Students Affairs Division (STAD)",
@@ -82,7 +82,7 @@ const facilityData = {
   sbcourt: {
     title: "Squash / Badminton Court",
     description: "Indoor courts for squash, badminton, and student sports activities.",
-    images: ["images/sbcourt1.jpg", "images/sbcourt2.jpg"]  //Link with gym
+    images: ["images/sbcourt.png"]  
   },
   gym: {
     title: "Gym",
@@ -91,18 +91,18 @@ const facilityData = {
   },
   finance: {
     title: "Finance Department",
-    description: "Office for finance services, payments, and related university matters.",
-    images: ["images/finance1.jpg", "images/finance2.jpg"]  // Link with stad
+    description: "Office for finance services, payments, and related university matters. It can be found in STAD building.",
+    images: ["images/stad(ess).jpg"]  // Link with stad
   },
   sad:{
     title: "Student Affairs Department (SAD)",
-    description: "Department that supports student welfare, activities, and campus life.",
-    images: ["images/sad1.jpg", "images/sad2.jpg"]  // Link with stad
+    description: "Department that supports student welfare, activities, and campus life. It can be found in STAD building.",
+    images: ["images/stad(ess).jpg"]  // Link with stad
   },
   pu:{
     title: "Procurement unit (PU)",
-    description: "Office handling procurement, purchasing, and supplier-related services.",
-    images: ["images/pu1.jpg", "images/pu2.jpg"]  // Link with stad
+    description: "Office handling procurement, purchasing, and supplier-related services. It can be found in STAD building.",
+    images: ["images/stad(ess).jpg"]  // Link with stad
   },
   cynergy:{
     title: "MMU Cynergy",
@@ -116,8 +116,8 @@ const facilityData = {
   },
   itsd:{
     title: "Information Technology Service Division (ITSD)",
-    description: "IT service office for campus systems, technical support, and digital services.",
-    images: ["images/itsd1.jpg", "images/itsd2.jpg"]  // Link with stad
+    description: "IT service office for campus systems, technical support, and digital services. It can be found in FCM building.",
+    images: ["images/fcm.jpg", "images/fcm2.jpg"]  // Link with fcm
   },
   ips:{
     title: "Institute of Postgraduate Studies (IPS)",
@@ -127,27 +127,27 @@ const facilityData = {
   eru:{
     title: "Examination & Record Unit (ERU)",
     description: "Office for examination records, academic documents, and student record services.",
-    images: ["images/eru1.jpg", "images/eru2.jpg"]  // Link with ips
+    images: ["images/ips.jpg"]  // Link with ips
   },  
   hrm:{
     title: "Human Resource Management (HRM)",
-    description: "Human resource office for staff services and employment-related support.",
-    images: ["images/hrm1.jpg", "images/hrm2.jpg"]  // Link with chancellery
+    description: "Human resource office for staff services and employment-related support. It can be found in chancellery building.",
+    images: ["images/chancellery.png"]  // Link with chancellery
   },
   gsom:{
     title: "Graduate School of Management (GSOM)",
-    description: "Graduate school area for management programs and postgraduate learning.",
-    images: ["images/gsom1.jpg", "images/gsom2.jpg"]  // Link with chancellery
+    description: "Graduate school area for management programs and postgraduate learning. It can be found in chancellery building.",
+    images: ["images/chancellery.png"]  // Link with chancellery
   },
   io:{
     title: "International Office (IO)",
-    description: "Office supporting international students, mobility programs, and global partnerships.",
-    images: ["images/io1.jpg", "images/io2.jpg"]  // Link with chancellery
+    description: "Office supporting international students, mobility programs, and global partnerships. It can be found in chancellery building.",
+    images: ["images/chancellery.png"]  // Link with chancellery
   },
   bu:{
     title: "Business Unit (BU)",
-    description: "Business unit office for university services and operational support.",
-    images: ["images/bu1.jpg", "images/bu2.jpg"]  // Link with chancellery
+    description: "Business unit office for university services and operational support. It can be found in chancellery building.",
+    images: ["images/chancellery.png"]  // Link with chancellery
   },
 };
 
