@@ -1,122 +1,152 @@
 const facilityData = {
   foe: {
     title: "Faculty of Engineering (FOE)",
+    description: "Engineering faculty building and surrounding learning spaces.",
     images: ["images/foe1.jpg", "images/foe2.jpg", "images/foe3.jpg"]  // Replace with actual image paths
   },
   fci: {
     title: "Faculty of Computing & Informatics (FCI)",
+    description: "Computing and informatics faculty area for classes, labs, and student activities.",
     images: ["images/fci1.jpg", "images/fci2.jpg"]  // Replace with actual image paths
   },
   fom: {
     title: "Faculty of Management (FOM)",
+    description: "Management faculty building for business, accounting, and management programs.",
     images: ["images/fom.jpg", "images/fom2.jpg"]  // Replace with actual image paths
   },
   fcm: {
     title: "Faculty of Creative Media (FCM)",
+    description: "Creative media faculty space for design, animation, and multimedia learning.",
     images: ["images/fcm.jpg"]  // Replace with actual image paths
   },
   stad: {
     title: "Students Affairs Division (STAD)",
+    description: "Student support office for campus services, activities, and student matters.",
     images: ["images/stad.jpg"]  // Replace with actual image paths
   },
   dtc: {
     title: "Dewan Tun Canselor (DTC)",
+    description: "Main hall used for official events, ceremonies, and large campus gatherings.",
     images: ["images/dtc.png", "images/dtc2.png", "images/dtc3.png"]  // Replace with actual image paths
   },
   chancellery: {
     title: "MMU Chancellery",
+    description: "Administrative building for university management and official offices.",
     images: ["images/chancellery.png"]  // Replace with actual image paths
   },
   fmd: {
     title: "Facilities Management Department (FMD)",
+    description: "Facilities office that manages campus maintenance and infrastructure services.",
     images: ["fmd1.jpg", "fmd2.jpg"]  // Replace with actual image paths
   },
   isc: {
     title: "Indoor Sports Center (ISC)",
+    description: "Indoor sports venue for games, training, and student recreation.",
     images: ["images/isc.jpg", "images/isc2.jpg"]  // Replace with actual image paths
   },
   clc: {
     title: "Common Lecture Complex (CLC)",
+    description: "Shared lecture complex used for classes, tutorials, and academic sessions.",
     images: ["clc1.jpg", "clc2.jpg"]  // Replace with actual image paths
   },
   library: {
     title: "Siti Hasmah Digital Library",
+    description: "Campus library with study areas, digital resources, and academic references.",
     images: ["images/library2.png", "images/library3.jpg", "images/library.png"]  // Replace with actual image paths
   },
   stadium: {
     title: "MMU Stadium",
+    description: "Outdoor stadium for sports events, training, and campus activities.",
     images: ["images/Stadium.png", "images/stadium2.jpg"]  // Replace with actual image paths
   },
   pool: {
     title: "Swimming Pool",
+    description: "Swimming facility for recreation, training, and aquatic activities.",
     images: ["images/Swimmingpool2.jpg", "images/Swimmingpool.png"]  // Replace with actual image paths
   },
   vcourt: {
     title: "Volleyball / Takraw Court",
+    description: "Outdoor court area for volleyball, sepak takraw, and casual sports.",
     images: ["images/vcourt.jpg"]  // Replace with actual image paths
   },
   mosque: {
     title: "Mosque",
+    description: "Prayer and gathering space for Muslim students and staff.",
     images: ["images/mosque.jpg", "images/mosque2.png"]  // Replace with actual image paths
   },
   theatre: {
     title: "E-Theatre",
+    description: "Theatre venue for talks, presentations, performances, and screenings.",
     images: ["images/theatre1.jpg", "images/theatre2.jpg"]  // Replace with actual image paths
   },
   sbcourt: {
     title: "Squash / Badminton Court",
+    description: "Indoor courts for squash, badminton, and student sports activities.",
     images: ["images/sbcourt1.jpg", "images/sbcourt2.jpg"]  // Replace with actual image paths
   },
   gym: {
     title: "Gym",
+    description: "Fitness facility with exercise equipment for student and staff workouts.",
     images: ["images/Gym.png", "images/Gym2.png", "images/Gym3.png"]  // Replace with actual image paths
   },
   finance: {
     title: "Finance Department",
+    description: "Office for finance services, payments, and related university matters.",
     images: ["images/finance1.jpg", "images/finance2.jpg"]  // Replace with actual image paths
   },
   sad:{
     title: "Student Affairs Department (SAD)",
+    description: "Department that supports student welfare, activities, and campus life.",
     images: ["images/sad1.jpg", "images/sad2.jpg"]  // Replace with actual image paths
   },
   pu:{
     title: "Procurement unit (PU)",
+    description: "Office handling procurement, purchasing, and supplier-related services.",
     images: ["images/pu1.jpg", "images/pu2.jpg"]  // Replace with actual image paths
   },
   cynergy:{
     title: "MMU Cynergy",
+    description: "Campus center supporting entrepreneurial, business, or innovation initiatives.",
     images: ["images/cynergy.jpg"]  // Replace with actual image paths
   },
   edc:{
     title: "Entrepreneurship Development Center (EDC)",
+    description: "Center for entrepreneurship programs, startup support, and business development.",
     images: ["images/edc1.jpg", "images/edc2.jpg"]  // Replace with actual image paths
   },
   itsd:{
     title: "Information Technology Service Division (ITSD)",
+    description: "IT service office for campus systems, technical support, and digital services.",
     images: ["images/itsd1.jpg", "images/itsd2.jpg"]  // Replace with actual image paths
   },
   ips:{
     title: "Institute of Postgraduate Studies (IPS)",
+    description: "Institute supporting postgraduate admissions, study matters, and research students.",
     images: ["images/ips1.jpg", "images/ips2.jpg"]  // Replace with actual image paths
   },
   eru:{
     title: "Examination & Record Unit (ERU)",
+    description: "Office for examination records, academic documents, and student record services.",
     images: ["images/eru1.jpg", "images/eru2.jpg"]  // Replace with actual image paths
   },  
   hrm:{
     title: "Human Resource Management (HRM)",
+    description: "Human resource office for staff services and employment-related support.",
     images: ["images/hrm1.jpg", "images/hrm2.jpg"]  // Replace with actual image paths
   },
   gsom:{
     title: "Graduate School of Management (GSOM)",
+    description: "Graduate school area for management programs and postgraduate learning.",
     images: ["images/gsom1.jpg", "images/gsom2.jpg"]  // Replace with actual image paths
   },
   io:{
     title: "International Office (IO)",
+    description: "Office supporting international students, mobility programs, and global partnerships.",
     images: ["images/io1.jpg", "images/io2.jpg"]  // Replace with actual image paths
   },
   bu:{
     title: "Business Unit (BU)",
+    description: "Business unit office for university services and operational support.",
     images: ["images/bu1.jpg", "images/bu2.jpg"]  // Replace with actual image paths
   },
 };
@@ -130,9 +160,19 @@ function openGallery(facilityKey) {
   container.innerHTML = ''; 
 
   data.images.forEach(src => {
+    const figure = document.createElement('figure');
+    figure.className = 'gallery-item';
+
     const img = document.createElement('img');
     img.src = src;
-    container.appendChild(img);
+    img.alt = data.title;
+
+    const caption = document.createElement('figcaption');
+    caption.textContent = data.description;
+
+    figure.appendChild(img);
+    figure.appendChild(caption);
+    container.appendChild(figure);
   });
 
   document.getElementById('galleryModal').style.display = "block";
