@@ -112,7 +112,7 @@ const facilityData = {
   edc:{
     title: "Entrepreneurship Development Center (EDC)",
     description: "Center for entrepreneurship programs, startup support, and business development.",
-    images: ["images/edc1.jpg", "images/edc2.jpg"]  // Replace with actual image paths
+    images: ["images/edc.jpg"]  // Replace with actual image paths
   },
   itsd:{
     title: "Information Technology Service Division (ITSD)",
