@@ -2,7 +2,7 @@ const facilityData = {
   foe: {
     title: "Faculty of Engineering (FOE)",
     description: "Engineering faculty building and surrounding learning spaces. This building is also known as FAIE (Faculty of Artifical Intelligence & Engineering).",
-    images: ["images/foe.jpg", "images/foe2.jpg"]  
+    images: ["images/foe.jpg", "images/foe2.jpg", "images/foe3.jpg"]  
   },
   fci: {
     title: "Faculty of Computing & Informatics (FCI)",
