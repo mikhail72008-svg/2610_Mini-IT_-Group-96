@@ -1,7 +1,7 @@
 const facilityData = {
   foe: {
     title: "Faculty of Engineering (FOE)",
-    description: "Engineering faculty building and surrounding learning spaces.",
+    description: "Engineering faculty building and surrounding learning spaces. This building is also known as FAIE (Faculty of Artifical Intelligence & Engineering).",
     images: ["images/foe.jpg", "images/foe2.jpg"]  
   },
   fci: {
@@ -46,7 +46,7 @@ const facilityData = {
   },
   clc: {
     title: "Common Lecture Complex (CLC)",
-    description: "Shared lecture complex used for classes, tutorials, and academic sessions.",
+    description: "Shared lecture complex used for classes and academic sessions.",
     images: ["images/clc.jpg"]  
   },
   library: {
@@ -76,7 +76,7 @@ const facilityData = {
   },
   theatre: {
     title: "E-Theatre",
-    description: "Theatre venue for talks, presentations, performances, and screenings.",
+    description: "Theatre venue for theatrical performances and screenings.",
     images: ["images/theatre.jpg"] 
   },
   sbcourt: {
