@@ -3,37 +3,37 @@ const facilityData = {
     title: "Faculty of Engineering (FOE)",
     description: "Engineering faculty building and surrounding learning spaces. This building is also known as FAIE (Faculty of Artifical Intelligence & Engineering).",
     images: ["images/foe.jpg", "images/foe2.jpg", "images/foe3.jpg"],
-    captions: ["Main Engineering Faculty Building", "Learning Corridor and Study Areas", "Exterior View of Faculty Complex"]
+    captions: ["Main Engineering Faculty Building", "Main Entrance", "FOE Directory"]
   },
   fci: {
     title: "Faculty of Computing & Informatics (FCI)",
     description: "Computing and informatics faculty area for classes, labs, and student activities.",
-    images: ["images/fci.jpg", "images/fci2.jpg", "images/fci3.jpg", "images/fci4.jpg"],
-    captions: ["Computer Labs and Research Facilities", "Faculty Entrance and Main Lobby", "Collaborative Learning Spaces", "Lecture Halls and Classrooms"]
+    images: ["images/fci.jpg", "images/fci2.jpg", "images/fci3.jpg", "images/fci4.jpg", "images/fci5.png"],
+    captions: ["Main Computing Faculty Building", "Main Entrance", "FCI Theatre", "Classes of CQCR:2001-2004 (2ND FLOOR) CQCR:3001-3004 (3RD FLOOR) could be accessed with these stairs", "FCI Directory"]
   },
   fom: {
     title: "Faculty of Management (FOM)",
     description: "Management faculty building for business, accounting, and management programs.",
-    images: ["images/fom.jpg", "images/fom2.jpg"],
-    captions: ["Main Management Building", "Faculty Offices and Meeting Rooms"]
+    images: ["images/fom.jpg", "images/fom2.jpg", "images/fom3.jpg", "images/fom4.png"],
+    captions: ["Main Management Faculty Building", "FOM Building", "Main Entrance", "FOM Directory"]
   },
   fcm: {
     title: "Faculty of Creative Media (FCM)",
     description: "Creative media faculty space for design, animation, and multimedia learning.",
     images: ["images/fcm.jpg", "images/fcm2.jpg"],
-    captions: ["Creative Studio and Design Labs", "Multimedia Production Facilities"]
+    captions: ["Main Creative Media Faculty Building", "FCM Directory"]
   },
   stad: {
     title: "Students Affairs Division (STAD)",
     description: "Student support office for campus services, activities, and student matters.",
-    images: ["images/stad.jpg", "images/stad2.jpg"],
-    captions: ["Main Student Services Building", "Student Support Counter"]
+    images: ["images/stad.jpg", "images/stad2.jpg", "images/stad(ess).jpg"],
+    captions: ["Main Student Services Building", "Main Entrance", "STAD Directory"]
   },
   dtc: {
     title: "Dewan Tun Canselor (DTC)",
     description: "Main hall used for official events, ceremonies, and large campus gatherings.",
-    images: ["images/dtc.png", "images/dtc2.png", "images/dtc3.png"],
-    captions: ["Main Auditorium Interior", "Grand Hall for Ceremonies", "Event Space and Conference Area"]
+    images: ["images/dtc.png", "images/dtc2.png"],
+    captions: ["Grand Hall for Ceremonies", "Main Auditorium Interior"]
   },
   chancellery: {
     title: "MMU Chancellery",
@@ -51,7 +51,7 @@ const facilityData = {
     title: "Indoor Sports Center (ISC)",
     description: "Indoor sports venue for games, training, and student recreation.",
     images: ["images/isc.jpg", "images/isc2.jpg"],
-    captions: ["Indoor Basketball and Multi-Sport Courts", "Spectator Areas and Training Zones"]
+    captions: ["Indoor Basketball and Multi-Sport Courts", "GYM"]
   },
   clc: {
     title: "Common Lecture Complex (CLC)",
@@ -62,20 +62,20 @@ const facilityData = {
   library: {
     title: "Siti Hasmah Digital Library",
     description: "Campus library with study areas, digital resources, and academic references.",
-    images: ["images/library2.png", "images/library3.jpg", "images/library.png"],
-    captions: ["Main Library Entrance", "Reading and Study Areas", "Digital Resource Center"]
+    images: ["images/library.jpg", "images/Library2.png", "images/library3.png"],
+    captions: ["Main Library Entrance", "Library", "Learning Point"]
   },
   stadium: {
     title: "MMU Stadium",
     description: "Outdoor stadium for sports events, training, and campus activities.",
-    images: ["images/Stadium.png", "images/stadium2.jpg"],
-    captions: ["Athletic Track and Field Facilities", "Stadium Stands and Playing Field"]
+    images: ["images/stadium.jpg", "images/Stadium2.png"],
+    captions: ["Main Stadium Entrance", "Athletic Track and Field Facilities"]
   },
   pool: {
     title: "Swimming Pool",
     description: "Swimming facility for recreation, training, and aquatic activities.",
     images: ["images/Swimmingpool2.jpg", "images/Swimmingpool.png"],
-    captions: ["Olympic-Sized Swimming Pool", "Pool Facilities and Surroundings"]
+    captions: ["Main enterance", "Olympic-Sized Swimming Pool"]
   },
   vcourt: {
     title: "Volleyball / Takraw Court",
@@ -90,22 +90,22 @@ const facilityData = {
     captions: ["Prayer Hall and Courtyard", "Mosque Main Structure"]
   },
   theatre: {
-    title: "E-Theatre",
+    title: "E-Theatre (Can be found in FCM building)",
     description: "Theatre venue for theatrical performances and screenings.",
     images: ["images/theatre.jpg"],
     captions: ["Theatre Auditorium and Stage"]
   },
   sbcourt: {
-    title: "Squash / Badminton Court",
+    title: "Squash / Badminton Court (Can be found in ISC)",
     description: "Indoor courts for squash, badminton, and student sports activities.",
     images: ["images/sbcourt.png"],
     captions: ["Indoor Squash and Badminton Courts"]
   },
   gym: {
     title: "Gym",
-    description: "Fitness facility with exercise equipment for student and staff workouts.",
+    description: "Fitness facility with exercise equipment for student and staff workouts (Can be found in ISC).",
     images: ["images/Gym.png", "images/Gym2.png", "images/Gym3.png"],
-    captions: ["Cardio and Weight Training Area", "Fitness Equipment Zone", "Gym Facilities Overview"]
+    captions: ["Weight Training Area", "Cardio and Aerobics Zone", "Gym Facilities Overview"]
   },
   finance: {
     title: "Finance Department",
@@ -141,7 +141,7 @@ const facilityData = {
     title: "Information Technology Service Division (ITSD)",
     description: "IT service office for campus systems, technical support, and digital services. It can be found in FCM building.",
     images: ["images/fcm.jpg", "images/fcm2.jpg"],
-    captions: ["IT Service Division Office", "Technical Support Center"]
+    captions: ["FCM building", "Directory"]
   },
   ips:{
     title: "Institute of Postgraduate Studies (IPS)",
@@ -207,6 +207,7 @@ function openGallery(facilityKey) {
   descriptionDiv.textContent = data.description;
   container.appendChild(descriptionDiv);
 
+  // Images on the right of the gallery and their captions
   data.images.forEach((src, index) => {
     const figure = document.createElement('figure');
     figure.className = 'gallery-item';
@@ -214,6 +215,10 @@ function openGallery(facilityKey) {
     const img = document.createElement('img');
     img.src = src;
     img.alt = data.title;
+    if (src.includes('fci5.png') || src.includes('fom4.png')) {
+      img.style.height = '200px';
+      img.style.marginTop = '290px';
+    }
 
     const caption = document.createElement('figcaption');
     caption.textContent = data.captions && data.captions[index] ? data.captions[index] : data.description;
