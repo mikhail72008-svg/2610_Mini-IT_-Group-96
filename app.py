@@ -1,15 +1,4 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-
-from database import create_tables
-from auth import register_user, login_user
-from posts import (
-    create_post,
-    get_all_posts,
-    get_user_posts,
-    get_most_liked_posts
-)
-from likes import like_post, unlike_post, get_like_count
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 CORS(app)

@@ -876,11 +876,32 @@ a {
   overflow-x: auto; 
   padding: 10px;
   scrollbar-width: thin;
+  align-items: flex-start;
 }
 
-.image-scroll-container img {
-  height: 200px;
+.gallery-item {
+  flex: 0 0 auto;
+  margin: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gallery-item img {
+  height: 500px;
+  width: auto;
   border-radius: 5px;
+  display: block;
+}
+
+.gallery-item figcaption {
+  margin-top: 8px;
+  color: #495057;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
 }
 
 /* Scrollbar for the gallery */
