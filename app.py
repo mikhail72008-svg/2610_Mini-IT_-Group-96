@@ -173,3 +173,21 @@ def remove_comment(comment_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+    # =========================
+# HOME ROUTE
+# =========================
+
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({
+        "status": "success",
+        "message": "Backend is running"
+    })
+
+
+# =========================
+# RUN APP
+# =========================
+
+if __name__ == "__main__":
+    app.run(debug=True)
