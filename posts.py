@@ -63,3 +63,17 @@ def get_most_liked_posts():
     conn.close()
 
     return posts
+
+def search_posts(keyword):
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM posts WHERE content LIKE ?",
+        ('%' + keyword + '%',)
+    )
+
+    posts = cursor.fetchall()
+    conn.close()
+
+    return posts
