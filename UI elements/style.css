@@ -194,6 +194,7 @@ a {
     flex-shrink: 0;
 }
 
+/* --- Random avatar colors for demonstration (Remove after data is available) --- */
 .avatar-blue {
     background-color: #0047AB;
 }
@@ -210,6 +211,7 @@ a {
     background-color: #b58100;
 }
 
+/* --- Post body --- */
 .feed-post-body {
     min-width: 0;
     flex: 1;
@@ -234,6 +236,7 @@ a {
     color: #212529;
 }
 
+/* --- Post actions (Like, Comment, Share) --- */
 .feed-actions {
     display: flex;
     gap: 22px;
@@ -256,19 +259,39 @@ a {
     color: #212529;
 }
 
+.feed-actions button.liked {
+    color: #dc3545;
+}
+
+.feed-actions button.liked:hover {
+    color: #bb2d3b;
+}
+
 .composer-preview {
     align-items: center;
 }
 
 .composer-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 14px;
 }
 
 .composer-placeholder {
-    color: #6c757d;
     flex: 1;
+    min-height: 44px;
+    border: none;
+    resize: none;
+    outline: none;
+    color: #212529;
+    font-size: 16px;
+    line-height: 1.4;
+    font-family: inherit;
+    padding: 8px 0;
+}
+
+.composer-placeholder::placeholder {
+    color: #6c757d;
 }
 
 .composer-post-btn {
@@ -283,6 +306,98 @@ a {
 
 .composer-post-btn:hover {
     background-color: #000000;
+}
+
+/* --- Comment section Popup --- */
+.comment-modal {
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 520px;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comment-post-preview {
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.comment-post-preview strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.comment-post-preview p {
+  color: #495057;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.comment-empty {
+  color: #6c757d;
+  font-size: 14px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+.comment-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: #f1f3f5;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-form textarea {
+  width: 100%;
+  min-height: 90px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  resize: vertical;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+}
+
+.comment-form textarea:focus {
+  border-color: #0047AB;
+}
+
+.comment-submit-btn {
+  align-self: flex-end;
+  background-color: #0047AB;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 9px 22px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.comment-submit-btn:hover {
+  background-color: #003985;
 }
 
 /* --- Search Layout --- */
@@ -528,6 +643,7 @@ a {
 .post-submit-btn:hover {
   background-color: #1b58ae;
 }
+
 
 /* --- CSS Hover Tooltips Sidebar --- */
 [data-tooltip]::after {
@@ -818,7 +934,7 @@ a {
     color: black;
 }
 
-/* --- Map Hotspots --- */
+/* --- Map and hotspots --- */
 .map-wrapper {
   position: relative;
   display: block;

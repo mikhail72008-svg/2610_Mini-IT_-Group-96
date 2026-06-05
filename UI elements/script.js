@@ -308,28 +308,79 @@ if (profilePicOptions.length > 0) {
   });
 }
 
+function createFeedPost(postText, insertAfterPost) {
+  const article = document.createElement('article');
+  article.className = 'feed-post';
+
+  const avatar = document.createElement('div');
+  avatar.className = 'feed-avatar avatar-blue';
+  avatar.textContent = 'M';
+
+  const body = document.createElement('div');
+  body.className = 'feed-post-body';
+
+  const header = document.createElement('div');
+  header.className = 'feed-post-header';
+
+  const name = document.createElement('strong');
+  name.textContent = 'You';
+
+  const handle = document.createElement('span');
+  handle.textContent = '@you';
+
+  const time = document.createElement('span');
+  time.textContent = 'now';
+
+  const paragraph = document.createElement('p');
+  paragraph.textContent = postText;
+
+  const actions = document.createElement('div');
+  actions.className = 'feed-actions';
+  actions.innerHTML = `
+    <button type="button"><i class="bi bi-heart"></i><span>0</span></button>
+    <button type="button"><i class="bi bi-chat"></i><span>0</span></button>
+  `;
+
+  header.append(name, handle, time);
+  body.append(header, paragraph, actions);
+  article.append(avatar, body);
+
+  insertAfterPost.insertAdjacentElement('afterend', article);
+}
+
 // Post Modal Functionality
 document.addEventListener('DOMContentLoaded', () => {
   // Grab the elements
   const createPostBtn = document.getElementById('createPostBtn');
   const postModalOverlay = document.getElementById('postModalOverlay');
   const closeModalBtn = document.getElementById('closeModalBtn');
-  const composerPostButtons = document.querySelectorAll('.composer-post-btn');
+  const modalTextarea = postModalOverlay ? postModalOverlay.querySelector('textarea') : null;
+  const modalPostButton = postModalOverlay ? postModalOverlay.querySelector('.post-submit-btn') : null;
+  const composerPost = document.querySelector('.composer-preview');
 
-  if (!createPostBtn || !postModalOverlay || !closeModalBtn) {
+  if (!createPostBtn || !postModalOverlay || !closeModalBtn || !modalTextarea || !modalPostButton || !composerPost) {
     return;
   }
 
   const openPostModal = () => {
     postModalOverlay.classList.remove('hidden');
-    postModalOverlay.querySelector('textarea').focus();
+    modalTextarea.focus();
   };
 
   // 1. Show modal when the blue plus icon is clicked
   createPostBtn.addEventListener('click', openPostModal);
 
-  composerPostButtons.forEach((button) => {
-    button.addEventListener('click', openPostModal);
+  modalPostButton.addEventListener('click', () => {
+    const postText = modalTextarea.value.trim();
+
+    if (!postText) {
+      modalTextarea.focus();
+      return;
+    }
+
+    createFeedPost(postText, composerPost);
+    modalTextarea.value = '';
+    postModalOverlay.classList.add('hidden');
   });
 
   // 2. Hide modal when the 'X' is clicked
@@ -342,6 +393,185 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target === postModalOverlay) {
       postModalOverlay.classList.add('hidden');
     }
+  });
+});
+
+// Feed Like Button Functionality
+document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('click', (event) => {
+    const heartIcon = event.target.closest('.feed-actions button .bi-heart, .feed-actions button .bi-heart-fill');
+
+    if (!heartIcon) {
+      return;
+    }
+
+    const likeButton = heartIcon.closest('button');
+    const likeCount = likeButton.querySelector('span');
+
+    const isLiked = likeButton.classList.toggle('liked');
+    heartIcon.classList.toggle('bi-heart');
+    heartIcon.classList.toggle('bi-heart-fill');
+
+    if (likeCount) {
+      const currentCount = Number(likeCount.textContent);
+      likeCount.textContent = String(currentCount + (isLiked ? 1 : -1));
+    }
+  });
+});
+
+// Feed Comment Popup Functionality
+document.addEventListener('DOMContentLoaded', () => {
+  const feedActions = document.querySelectorAll('.feed-actions');
+  const commentsByPost = new Map();
+  let activePost = null;
+  let activeCount = null;
+
+  if (feedActions.length === 0) {
+    return;
+  }
+
+  const modalOverlay = document.createElement('div');
+  modalOverlay.className = 'modal-overlay hidden';
+  modalOverlay.innerHTML = `
+    <div class="comment-modal">
+      <div class="modal-header">
+        <h3>Comments</h3>
+        <button type="button" class="close-btn" id="closeCommentModal">&times;</button>
+      </div>
+      <div class="comment-post-preview">
+        <strong id="commentPostAuthor"></strong>
+        <p id="commentPostText"></p>
+      </div>
+      <div class="comment-list" id="commentList"></div>
+      <form class="comment-form" id="commentForm">
+        <textarea id="commentInput" placeholder="Write a comment..."></textarea>
+        <button type="submit" class="comment-submit-btn">Post</button>
+      </form>
+    </div>
+  `;
+  document.body.appendChild(modalOverlay);
+
+  const closeCommentModal = document.getElementById('closeCommentModal');
+  const commentPostAuthor = document.getElementById('commentPostAuthor');
+  const commentPostText = document.getElementById('commentPostText');
+  const commentList = document.getElementById('commentList');
+  const commentForm = document.getElementById('commentForm');
+  const commentInput = document.getElementById('commentInput');
+
+  const renderComments = () => {
+    const comments = commentsByPost.get(activePost) || [];
+
+    if (comments.length === 0) {
+      commentList.innerHTML = '<div class="comment-empty">No comments yet.</div>';
+      return;
+    }
+
+    commentList.innerHTML = '';
+    comments.forEach((comment) => {
+      const commentItem = document.createElement('div');
+      commentItem.className = 'comment-item';
+      commentItem.textContent = comment;
+      commentList.appendChild(commentItem);
+    });
+  };
+
+  const openCommentModal = (post, countElement) => {
+    activePost = post;
+    activeCount = countElement;
+
+    const author = post.querySelector('.feed-post-header strong');
+    const postText = post.querySelector('.feed-post-body p');
+
+    commentPostAuthor.textContent = author ? author.textContent : 'Post';
+    commentPostText.textContent = postText ? postText.textContent : '';
+    commentInput.value = '';
+    renderComments();
+
+    modalOverlay.classList.remove('hidden');
+    commentInput.focus();
+  };
+
+  const hideCommentModal = () => {
+    modalOverlay.classList.add('hidden');
+  };
+
+  document.addEventListener('click', (event) => {
+    const commentIcon = event.target.closest('.feed-actions button .bi-chat');
+
+    if (!commentIcon) {
+      return;
+    }
+
+    const commentButton = commentIcon.closest('button');
+    const countElement = commentButton.querySelector('span');
+    const post = commentButton.closest('.feed-post');
+
+    if (!post) {
+      return;
+    }
+
+    if (!commentsByPost.has(post)) {
+      commentsByPost.set(post, []);
+    }
+
+    openCommentModal(post, countElement);
+  });
+
+  commentForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const comment = commentInput.value.trim();
+    if (!comment || !activePost) {
+      return;
+    }
+
+    const comments = commentsByPost.get(activePost) || [];
+    comments.push(comment);
+    commentsByPost.set(activePost, comments);
+
+    if (activeCount) {
+      activeCount.textContent = String(Number(activeCount.textContent) + 1);
+    }
+
+    commentInput.value = '';
+    renderComments();
+  });
+
+  closeCommentModal.addEventListener('click', hideCommentModal);
+
+  modalOverlay.addEventListener('click', (event) => {
+    if (event.target === modalOverlay) {
+      hideCommentModal();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      hideCommentModal();
+    }
+  });
+});
+
+// Inline Composer Functionality
+document.addEventListener('DOMContentLoaded', () => {
+  const composerInput = document.querySelector('.composer-placeholder');
+  const composerPostButton = document.querySelector('.composer-post-btn');
+  const composerPost = document.querySelector('.composer-preview');
+
+  if (!composerInput || !composerPostButton || !composerPost) {
+    return;
+  }
+
+  composerPostButton.addEventListener('click', () => {
+    const postText = composerInput.value.trim();
+
+    if (!postText) {
+      composerInput.focus();
+      return;
+    }
+
+    createFeedPost(postText, composerPost);
+    composerInput.value = '';
   });
 });
 
