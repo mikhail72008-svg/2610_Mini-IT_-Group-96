@@ -821,7 +821,10 @@ a {
 /* --- Map Hotspots --- */
 .map-wrapper {
   position: relative;
-  display: inline-block;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .main-map {
