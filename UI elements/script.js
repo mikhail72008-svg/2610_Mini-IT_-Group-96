@@ -235,6 +235,7 @@ function closeGallery() {
   document.getElementById('galleryModal').style.display = "none";
 }
 
+// Edit Profile Modal Functionality
 const openEditProfileButton = document.getElementById('openEditProfile');
 const editProfileModal = document.getElementById('editProfileModal');
 const closeEditProfileButton = document.getElementById('closeEditProfile');
@@ -308,6 +309,7 @@ if (profilePicOptions.length > 0) {
   });
 }
 
+// Function to create a new post in the feed
 function createFeedPost(postText, insertAfterPost) {
   const article = document.createElement('article');
   article.className = 'feed-post';
@@ -329,7 +331,7 @@ function createFeedPost(postText, insertAfterPost) {
   handle.textContent = '@you';
 
   const time = document.createElement('span');
-  time.textContent = 'now';
+  time.textContent = 'now';  // Demonstration only, this would be a timestamp
 
   const paragraph = document.createElement('p');
   paragraph.textContent = postText;
@@ -367,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modalTextarea.focus();
   };
 
-  // 1. Show modal when the blue plus icon is clicked
+  // Show modal when the blue plus icon is clicked
   createPostBtn.addEventListener('click', openPostModal);
 
   modalPostButton.addEventListener('click', () => {
@@ -383,12 +385,12 @@ document.addEventListener('DOMContentLoaded', () => {
     postModalOverlay.classList.add('hidden');
   });
 
-  // 2. Hide modal when the 'X' is clicked
+  // Hide modal when the 'X' is clicked
   closeModalBtn.addEventListener('click', () => {
     postModalOverlay.classList.add('hidden');
   });
 
-  // 3. Hide modal when clicking the dark background outside the box
+  // Hide modal when clicking the dark background outside the box
   postModalOverlay.addEventListener('click', (event) => {
     if (event.target === postModalOverlay) {
       postModalOverlay.classList.add('hidden');
