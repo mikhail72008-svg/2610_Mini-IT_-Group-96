@@ -587,7 +587,7 @@ a {
 .auth-button {
     width: 100%;
     padding: 12px;
-    background-color: #212529;
+    background-color: #0047AB;
     color: white;
     border: none;
     border-radius: 6px;
@@ -597,13 +597,22 @@ a {
 }
 
 .auth-button:hover {
-    background-color: #000;
+    background-color: #003985;
 }
 
 .auth-footer {
     margin-top: 20px;
     font-size: 14px;
     color: #6c757d;
+}
+
+.auth-footer a {
+    color: #5b25b2;
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    color: #8623ad;
 }
 
 /* --- Profile Page Layout --- */
