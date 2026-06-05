@@ -32,4 +32,18 @@ def login_user(username, password):
     if user:
         return {"status": "success", "user": user}
     else:
-        return {"status": "error", "message": "Invalid credentials"}
+        return {"status": "error", "message": "Invalid credentials"} 
+  
+    def search_users(keyword):
+        conn = connect()
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "SELECT id, username FROM users WHERE username LIKE ?",
+            ('%' + keyword + '%',)
+        )
+
+        users = cursor.fetchall()
+        conn.close()
+
+        return users
