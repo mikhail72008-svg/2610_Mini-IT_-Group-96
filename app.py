@@ -177,6 +177,43 @@ def home():
 
 
 # =========================
+# PAGE ROUTES
+# =========================
+
+@app.route("/Homepage.html")
+def homepage():
+    return render_template("Homepage.html")
+
+@app.route("/Following.html")
+def following():
+    return render_template("Following.html")
+
+@app.route("/Search.html")
+def search():
+    return render_template("Search.html")
+
+@app.route("/Profile.html")
+def profile():
+    return render_template("Profile.html")
+
+@app.route("/Trending.html")
+def trending():
+    return render_template("Trending.html")
+
+@app.route("/Map.html")
+def map_page():
+    return render_template("Map.html")
+
+@app.route("/Register.html")
+def register_page():
+    return render_template("Register.html")
+
+@app.route("/login.html")
+def login_page():
+    return render_template("login.html")
+
+
+# =========================
 # RUN APP
 # =========================
 
