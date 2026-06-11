@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
 from database import create_tables
@@ -173,10 +173,7 @@ def remove_comment(comment_id):
 
 @app.route("/", methods=["GET"])
 def home():
-    return jsonify({
-        "status": "success",
-        "message": "Backend is running"
-    })
+    return render_template("Homepage.html")
 
 
 # =========================
