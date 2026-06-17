@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MMUHUB Profile Page</title>
     <link rel="icon" type="image/jpeg" href="Images/icon.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
@@ -86,10 +86,10 @@
                         <button class="profile-modal-close" id="closeProfilePicModal" Geometric Sans="Close profile picture selection">&times;</button>
                         <h2>Choose Profile Picture</h2>
                         <div class="profile-pic-options">
-                          <img src="Images/girl(default).png" alt="Profile Pic 1" class="profile-pic-option" data-src="Images/girl(default).png">
-                          <img src="Images/girl_2.png" alt="Profile Pic 2" class="profile-pic-option" data-src="Images/girl_2.png">
-                          <img src="Images/boy(default).png" alt="Profile Pic 3" class="profile-pic-option" data-src="Images/boy(default).png">
-                          <img src="Images/boy_2.png" alt="Profile Pic 4" class="profile-pic-option" data-src="Images/boy_2.png">
+                          <img src="{{ url_for('static', filename='Images/girl(default).png') }}">
+                          <img src="{{ url_for('static', filename='Images/girl_2.png') }}">
+                          <img src="{{ url_for('static', filename='Images/boy(default).png') }}">
+                          <img src="{{ url_for('static', filename='Images/boy_2.png') }}">
                         </div>
                       </div>
                     </div>
@@ -97,6 +97,6 @@
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
