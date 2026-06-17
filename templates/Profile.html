@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MMUHUB Profile Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/jpeg" href="Images/icon.png">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
@@ -40,7 +41,7 @@
                      <div class="profile-banner"></div>
 
                       <div class="profile-header">
-                       <img src="https://via.placeholder.com/120" alt="Profile Picture" class="profile-avatar">
+                       <img src="https://via.placeholder.com/120" class="profile-avatar">
                        <button class="edit-btn" id="openEditProfile">Edit Profile</button>
                       </div>
 
@@ -96,6 +97,6 @@
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="script.js"></script>
 </body>
 </html>

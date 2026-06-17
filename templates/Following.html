@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MMUHUB Following Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/jpeg" href="Images/icon.png">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
@@ -54,8 +55,6 @@
                                 <div class="feed-actions">
                                     <button type="button"><i class="bi bi-heart"></i><span>15</span></button>
                                     <button type="button"><i class="bi bi-chat"></i><span>4</span></button>
-                                    <button type="button"><i class="bi bi-repeat"></i><span>1</span></button>
-                                    <button type="button"><i class="bi bi-send"></i></button>
                                 </div>
                             </div>
                         </article>
@@ -72,8 +71,6 @@
                                 <div class="feed-actions">
                                     <button type="button"><i class="bi bi-heart"></i><span>32</span></button>
                                     <button type="button"><i class="bi bi-chat"></i><span>8</span></button>
-                                    <button type="button"><i class="bi bi-repeat"></i><span>5</span></button>
-                                    <button type="button"><i class="bi bi-send"></i></button>
                                 </div>
                             </div>
                         </article>
@@ -90,17 +87,10 @@
                                 <div class="feed-actions">
                                     <button type="button"><i class="bi bi-heart"></i><span>21</span></button>
                                     <button type="button"><i class="bi bi-chat"></i><span>3</span></button>
-                                    <button type="button"><i class="bi bi-repeat"></i><span>4</span></button>
-                                    <button type="button"><i class="bi bi-send"></i></button>
                                 </div>
                             </div>
                         </article>
                     </section>
-
-                    <!-- Create Post Button -->
-                    <div id="createPostBtn" class="createPostBtn" data-tooltip="New Post">
-                        <i class="bi bi-plus-lg"></i>
-                    </div>
                 </main>
             </div>
         </div>
@@ -126,6 +116,6 @@
     
   </div>
 </div>
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script src="script.js"></script>
 </body>
 </html>

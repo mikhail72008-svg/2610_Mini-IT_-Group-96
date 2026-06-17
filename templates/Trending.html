@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MMUHUB Trending Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/jpeg" href="Images/icon.png">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
@@ -51,8 +52,6 @@
                                 <div class="feed-actions">
                                     <button type="button"><i class="bi bi-heart"></i><span>86</span></button>
                                     <button type="button"><i class="bi bi-chat"></i><span>19</span></button>
-                                    <button type="button"><i class="bi bi-repeat"></i><span>14</span></button>
-                                    <button type="button"><i class="bi bi-send"></i></button>
                                 </div>
                             </div>
                         </article>
@@ -68,8 +67,6 @@
                                 <div class="feed-actions">
                                     <button type="button"><i class="bi bi-heart"></i><span>104</span></button>
                                     <button type="button"><i class="bi bi-chat"></i><span>31</span></button>
-                                    <button type="button"><i class="bi bi-repeat"></i><span>22</span></button>
-                                    <button type="button"><i class="bi bi-send"></i></button>
                                 </div>
                             </div>
                         </article>
@@ -85,41 +82,15 @@
                                 <div class="feed-actions">
                                     <button type="button"><i class="bi bi-heart"></i><span>73</span></button>
                                     <button type="button"><i class="bi bi-chat"></i><span>16</span></button>
-                                    <button type="button"><i class="bi bi-repeat"></i><span>9</span></button>
-                                    <button type="button"><i class="bi bi-send"></i></button>
                                 </div>
                             </div>
                         </article>
-                    </section>
-
-                    <div id="createPostBtn" class="createPostBtn" data-tooltip="New Post">
-                        <i class="bi bi-plus-lg"></i>
-                    </div>
+                    </section>  
                 </main>
             </div>
         </div>
     </div>
-
-    <!-- Post Functionality -->
-    <div id="postModalOverlay" class="modal-overlay hidden">
-  <div class="post-modal">
-    
-    <div class="modal-header">
-      <h3>New Post</h3>
-      <button id="closeModalBtn" class="close-btn">&times;</button>
-    </div>
-    
-    <div class="modal-body">
-      <div class="avatar-placeholder"></div>
-      <textarea placeholder="Post something..." rows="4"></textarea>
-    </div>
-    
-    <div class="modal-footer">
-      <button class="post-submit-btn">Post</button>
-    </div>
-    
-  </div>
 </div>
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script src="script.js"></script>
 </body>
 </html>
