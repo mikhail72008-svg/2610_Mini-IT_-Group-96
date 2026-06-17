@@ -1,3 +1,4 @@
+const STATIC = "/static/Images/";
 const facilityData = {
   foe: {
     title: "Faculty of Engineering (FOE)",
@@ -183,7 +184,13 @@ const facilityData = {
 
 // MMU map images of facilities
 function openGallery(facilityKey) {
+
   const data = facilityData[facilityKey];
+
+  if (!data){
+      alert("Facility not found.");
+      return;
+  }
   document.getElementById('galleryTitle').innerText = data.title;
   
   const container = document.getElementById('imageContainer');
@@ -213,7 +220,7 @@ function openGallery(facilityKey) {
     figure.className = 'gallery-item';
 
     const img = document.createElement('img');
-    img.src = src;
+    img.src = STATIC + src.split('/').pop();
     img.alt = data.title;
     if (src.includes('fci5.png') || src.includes('fom4.png')) {
       img.style.height = '200px';
@@ -302,7 +309,7 @@ if (profilePicOptions.length > 0) {
   profilePicOptions.forEach(option => {
     option.addEventListener('click', () => {
       const newSrc = option.getAttribute('data-src');
-      profileAvatar.src = newSrc;
+      profileAvatar.src = "/static/Images/" + newSrc.split('/').pop();
       profilePicModal.classList.remove('show');
     });
   });
@@ -349,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const searchBtn = document.getElementById('searchBtn');
 if (searchBtn) {
   searchBtn.addEventListener('click', () => {
-    window.location.href = 'Search.html';
+    window.location.href = '/Search.html';
   });
 }
 
