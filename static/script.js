@@ -439,3 +439,51 @@ function performSearch() {
     `).join('');
   }
 }
+// =========================
+// LOGIN FUNCTIONALITY
+// =========================
+
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+    loginForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const message = document.getElementById("loginMessage");
+
+        try {
+            const response = await fetch("/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.status === "success") {
+                message.style.color = "green";
+                message.textContent = "Login successful!";
+
+                setTimeout(() => {
+                    window.location.href = "/Homepage.html";
+                }, 800);
+
+            } else {
+                message.style.color = "red";
+                message.textContent = data.message;
+            }
+
+        } catch (error) {
+            message.style.color = "red";
+            message.textContent = "Server connection failed.";
+            console.error(error);
+        }
+    });
+}

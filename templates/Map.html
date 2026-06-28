@@ -37,7 +37,7 @@
                     
                     <div class="map-wrapper">
                     <!-- MMU Map  -->
-                     <img src="Images/MMU-Map.jpg" style="width: 100%; max-height: 80vh; object-fit: contain;" alt="MMU Map" class="main-map">
+                     <img src="{{ url_for('static', filename='Images/MMU-Map.jpg') }}"
 
                      <!-- Clickable Hotspots (Faculties) -->
                      <button class="hotspot" style="top: 18.5%; left: 2%; width: 20px; height: 20px;" onclick="openGallery('foe')">1</button>
