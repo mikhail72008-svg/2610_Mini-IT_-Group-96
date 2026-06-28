@@ -43,9 +43,11 @@ create_tables()
 @app.route("/api/register", methods=["POST"])
 def register():
     data = request.get_json()
+
     return jsonify(
         register_user(
             data["username"],
+            data["email"],
             data["password"]
         )
     )
@@ -54,9 +56,10 @@ def register():
 @app.route("/api/login", methods=["POST"])
 def login():
     data = request.get_json()
+
     return jsonify(
         login_user(
-            data["username"],
+            data["email"],
             data["password"]
         )
     )
@@ -173,7 +176,7 @@ def remove_comment(comment_id):
 
 @app.route("/", methods=["GET"])
 def home():
-    return render_template("Homepage.html")
+    return render_template("login.html")
 
 
 # =========================
