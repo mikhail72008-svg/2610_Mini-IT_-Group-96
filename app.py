@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session, redirect, url_for
 from flask_cors import CORS
 
 from database import create_tables
@@ -30,6 +30,7 @@ from comments import (
 )
 
 app = Flask(__name__)
+app.secret_key = "mmuhub_secret_key"
 CORS(app)
 
 # Create database tables when app starts
@@ -57,12 +58,15 @@ def register():
 def login():
     data = request.get_json()
 
-    return jsonify(
-        login_user(
-            data["email"],
-            data["password"]
-        )
+    result = login_user(
+        data["email"],
+        data["password"]
     )
+
+    if result["status"] == "success":
+        session["user"] = result["user"]
+
+    return jsonify(result)
 
 
 # =========================
@@ -176,6 +180,10 @@ def remove_comment(comment_id):
 
 @app.route("/", methods=["GET"])
 def home():
+
+    if "user" in session:
+        return redirect(url_for("homepage"))
+
     return render_template("login.html")
 
 
@@ -185,7 +193,14 @@ def home():
 
 @app.route("/Homepage.html")
 def homepage():
-    return render_template("Homepage.html")
+
+    if "user" not in session:
+        return redirect(url_for("login_page"))
+
+    return render_template(
+        "Homepage.html",
+        username=session["user"]["username"]
+    )
 
 @app.route("/Following.html")
 def following():
@@ -220,5 +235,9 @@ def login_page():
 # RUN APP
 # =========================
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login_page"))
 if __name__ == "__main__":
     app.run(debug=True)
