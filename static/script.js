@@ -449,9 +449,9 @@ if (loginForm) {
     loginForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        const message = document.getElementById("loginMessage");
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+const message = document.getElementById("loginMessage");
 
         try {
             const response = await fetch("/api/login", {
@@ -460,9 +460,9 @@ if (loginForm) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    username: username,
-                    password: password
-                })
+    email: email,
+    password: password
+})
             });
 
             const data = await response.json();
@@ -486,4 +486,74 @@ if (loginForm) {
             console.error(error);
         }
     });
+}
+// =========================
+// REGISTER FUNCTIONALITY
+// =========================
+
+const registerForm = document.getElementById("registerForm");
+
+if (registerForm) {
+
+    registerForm.addEventListener("submit", async function(e){
+
+        e.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const message = document.getElementById("registerMessage");
+
+        try{
+
+            const response = await fetch("/api/register",{
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+
+                    username:username,
+                    email:email,
+                    password:password
+
+                })
+
+            });
+
+            const data = await response.json();
+
+            if(data.status==="success"){
+
+                message.style.color="green";
+                message.textContent=data.message;
+
+                setTimeout(()=>{
+
+                    window.location.href="/login.html";
+
+                },1000);
+
+            }else{
+
+                message.style.color="red";
+                message.textContent=data.message;
+
+            }
+
+        }catch(error){
+
+            message.style.color="red";
+            message.textContent="Unable to connect to server.";
+
+            console.error(error);
+
+        }
+
+    });
+
 }
