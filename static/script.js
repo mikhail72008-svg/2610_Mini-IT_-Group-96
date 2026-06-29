@@ -349,9 +349,52 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target === postModalOverlay) {
       postModalOverlay.classList.add('hidden');
     }
-  });
+  
 });
 
+// 4. Submit a new post
+const submitPostBtn = document.querySelector('.post-submit-btn');
+const postTextarea = postModalOverlay.querySelector('textarea');
+
+submitPostBtn.addEventListener('click', async () => {
+
+    const content = postTextarea.value.trim();
+
+    if (content === "") {
+        alert("Please enter something before posting.");
+        return;
+    }
+
+    try {
+
+        const response = await fetch("/api/posts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                user_id: 1,
+                content: content
+            })
+        });
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        postTextarea.value = "";
+        postModalOverlay.classList.add("hidden");
+
+        location.reload();
+
+    } catch (error) {
+        console.error(error);
+        alert("Unable to create post.");
+    }
+
+});
+
+});
 // Search Button Functionality
 const searchBtn = document.getElementById('searchBtn');
 if (searchBtn) {

@@ -8,7 +8,7 @@
       href="{{ url_for('static', filename='Images/icon.png') }}">
 
 <link rel="stylesheet"
-      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
@@ -46,68 +46,38 @@
 
                     <!-- Feed Area -->
                     <section class="feed-container">
-                        <article class="feed-post composer-preview">
-                            <div class="feed-avatar avatar-blue">M</div> <!-- Demonstration purposes -->
-                            <div class="feed-post-body">
-                                <div class="composer-row">
-                                    <textarea class="composer-placeholder" placeholder="What's happening around MMU?" rows="2"></textarea>
-                                    <button class="composer-post-btn" type="button">Post</button>
-                                </div>
-                            </div>
-                        </article>
+                        {% for post in posts %}
+<article class="feed-post">
 
-                        <!-- Demonstration purposes -->
-                        <article class="feed-post">
-                            <div class="feed-avatar avatar-green">A</div>
-                            <div class="feed-post-body">
-                                <div class="feed-post-header">
-                                    <strong>Aina Rahman</strong>
-                                    <span>@aina</span>
-                                    <span>12m</span>
-                                </div>
-                                <p>Found a quiet study spot near the library today. Good lighting, strong Wi-Fi, and somehow still peaceful.</p>
-                                <div class="feed-actions">
-                                    <button type="button"><i class="bi bi-heart"></i><span>24</span></button>
-                                    <button type="button"><i class="bi bi-chat"></i><span>6</span></button>
-                                </div>
-                            </div>
-                        </article>
+    <div class="feed-avatar avatar-blue">
+        {{ post[1][0]|upper }}
+    </div>
 
-                        <article class="feed-post">
-                            <div class="feed-avatar avatar-red">D</div>
-                            <div class="feed-post-body">
-                                <div class="feed-post-header">
-                                    <strong>Daniel Lee</strong>
-                                    <span>@daniel</span>
-                                    <span>38m</span>
-                                </div>
-                                <p>Anyone joining the campus run this Friday? Thinking of making a small group after class.</p>
-                                <div class="feed-actions">
-                                    <button type="button"><i class="bi bi-heart"></i><span>18</span></button>
-                                    <button type="button"><i class="bi bi-chat"></i><span>9</span></button>
-                                </div>
-                            </div>
-                        </article>
+    <div class="feed-post-body">
 
-                        <article class="feed-post">
-                            <div class="feed-avatar avatar-yellow">S</div> 
-                            <div class="feed-post-body">
-                                <div class="feed-post-header">
+        <div class="feed-post-header">
+            <strong>{{ post[1] }}</strong>
+            <span>{{ post[3] }}</span>
+        </div>
 
-                                    <!-- Demonstration purposes -->
-                                    <strong>Sofia Tan</strong>
-                                    <span>@sofia</span>
-                                    <span>1h</span>
-                                </div>
-                                <p>Reminder: project consultation slots fill up fast near submission week. Book early, future you will be grateful.</p>
-                                <div class="feed-actions">
+        <p>{{ post[2] }}</p>
 
-                                    <!--Numbers for demonstration purposes -->
-                                    <button type="button"><i class="bi bi-heart"></i><span>41</span></button>
-                                    <button type="button"><i class="bi bi-chat"></i><span>11</span></button>
-                                </div>
-                            </div>
-                        </article>
+        <div class="feed-actions">
+            <button type="button">
+                <i class="bi bi-heart"></i>
+                <span>0</span>
+            </button>
+
+            <button type="button">
+                <i class="bi bi-chat"></i>
+                <span>0</span>
+            </button>
+        </div>
+
+    </div>
+
+</article>
+{% endfor %}
                     </section>
 
                      <!-- Post Functionality -->

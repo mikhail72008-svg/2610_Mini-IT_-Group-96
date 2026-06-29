@@ -20,14 +20,25 @@ def get_all_posts():
     conn = connect()
     cursor = conn.cursor()
 
-    cursor.execute(
-        "SELECT * FROM posts ORDER BY created_at DESC"
-    )
+    cursor.execute("""
+        SELECT
+            posts.id,
+            users.username,
+            posts.content,
+            posts.created_at
+        FROM posts
+        JOIN users
+            ON posts.user_id = users.id
+        ORDER BY posts.created_at DESC
+    """)
 
     posts = cursor.fetchall()
+
     conn.close()
 
     return posts
+
+    
 
 
 def delete_post(post_id):
@@ -47,6 +58,35 @@ def delete_post(post_id):
 def get_user_posts(user_id):
     conn = connect()
     cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM posts
+        WHERE user_id = ?
+        ORDER BY created_at DESC
+    """, (user_id,))
+
+    posts = cursor.fetchall()
+
+    conn.close()
+
+    return posts
+
+    cursor.execute(
+        """
+        SELECT *
+        FROM posts
+        WHERE user_id = ?
+        ORDER BY created_at DESC
+        """,
+        (user_id,)
+    )
+
+    posts = cursor.fetchall()
+
+    conn.close()
+
+    return posts
 def get_most_liked_posts():
     conn = connect()
     cursor = conn.cursor()

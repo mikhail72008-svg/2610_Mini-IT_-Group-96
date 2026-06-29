@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for
+from datetime import datetime
 from flask_cors import CORS
 
 from database import create_tables
@@ -35,7 +36,33 @@ CORS(app)
 
 # Create database tables when app starts
 create_tables()
+def time_ago(timestamp):
 
+    if isinstance(timestamp, str):
+        timestamp = datetime.fromisoformat(timestamp)
+
+    now = datetime.now()
+    diff = now - timestamp
+
+    seconds = diff.total_seconds()
+
+    if seconds < 60:
+        return "Just now"
+
+    elif seconds < 3600:
+        minutes = int(seconds // 60)
+        return f"{minutes} min ago"
+
+    elif seconds < 86400:
+        hours = int(seconds // 3600)
+        return f"{hours} hour ago" if hours == 1 else f"{hours} hours ago"
+
+    elif seconds < 172800:
+        return "Yesterday"
+
+    else:
+        days = diff.days
+        return f"{days} days ago"
 
 # =========================
 # AUTH ROUTES
@@ -197,9 +224,12 @@ def homepage():
     if "user" not in session:
         return redirect(url_for("login_page"))
 
+    posts = get_all_posts()
+
     return render_template(
         "Homepage.html",
-        username=session["user"]["username"]
+        username=session["user"]["username"],
+        posts=posts
     )
 
 @app.route("/Following.html")
