@@ -600,3 +600,46 @@ if (registerForm) {
     });
 
 }
+// =========================
+// LIKE BUTTON
+// =========================
+
+document.querySelectorAll(".like-btn").forEach(button => {
+
+    button.addEventListener("click", async () => {
+
+        const postId = button.dataset.postId;
+
+        try {
+
+            const response = await fetch("/api/likes", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: 1,
+                    post_id: postId
+                })
+            });
+
+            const result = await response.json();
+
+if (result.message === "Post liked" || result.message === "Already liked") {
+
+    const likeResponse = await fetch(`/api/likes/${postId}`);
+    const likeData = await likeResponse.json();
+
+    button.querySelector(".like-count").textContent = likeData.likes;
+}
+
+alert(result.message);
+
+        } catch (error) {
+            console.error(error);
+            alert("Unable to like post.");
+        }
+
+    });
+
+});

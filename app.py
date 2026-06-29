@@ -60,9 +60,20 @@ def time_ago(timestamp):
     elif seconds < 172800:
         return "Yesterday"
 
+    elif diff.days < 7:
+        return f"{diff.days} days ago"
+
+    elif diff.days < 30:
+        weeks = diff.days // 7
+        return f"{weeks} week ago" if weeks == 1 else f"{weeks} weeks ago"
+
+    elif diff.days < 365:
+        months = diff.days // 30
+        return f"{months} month ago" if months == 1 else f"{months} months ago"
+
     else:
-        days = diff.days
-        return f"{days} days ago"
+        years = diff.days // 365
+        return f"{years} year ago" if years == 1 else f"{years} years ago"
 
 # =========================
 # AUTH ROUTES
@@ -226,10 +237,21 @@ def homepage():
 
     posts = get_all_posts()
 
+    formatted_posts = []
+
+    for post in posts:
+        formatted_posts.append({
+    "id": post[0],
+    "username": post[1],
+    "content": post[2],
+    "time": time_ago(post[3]),
+    "likes": get_like_count(post[0])["likes"]
+})
+
     return render_template(
         "Homepage.html",
         username=session["user"]["username"],
-        posts=posts
+        posts=formatted_posts
     )
 
 @app.route("/Following.html")
