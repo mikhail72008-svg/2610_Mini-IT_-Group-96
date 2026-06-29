@@ -643,3 +643,38 @@ alert(result.message);
     });
 
 });
+document.querySelectorAll(".delete-btn").forEach(button => {
+
+    button.addEventListener("click", async () => {
+
+        const postId = button.dataset.postId;
+
+        const confirmDelete = confirm("Delete this post?");
+
+        if (!confirmDelete) {
+            return;
+        }
+
+        try {
+
+            const response = await fetch(`/api/posts/${postId}`, {
+                method: "DELETE"
+            });
+
+            const result = await response.json();
+
+            alert(result.message);
+
+            // Remove the post from the page
+            button.closest(".feed-post").remove();
+
+        } catch (error) {
+
+            console.error(error);
+            alert("Unable to delete post.");
+
+        }
+
+    });
+
+});

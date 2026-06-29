@@ -13,6 +13,7 @@ from auth import (
 from posts import (
     create_post,
     get_all_posts,
+    delete_post,
     get_user_posts,
     get_most_liked_posts,
     search_posts
@@ -113,6 +114,7 @@ def login():
 
 @app.route("/api/posts", methods=["POST"])
 def create():
+
     data = request.get_json()
 
     return jsonify(
@@ -122,6 +124,12 @@ def create():
         )
     )
 
+@app.route("/api/posts/<int:post_id>", methods=["DELETE"])
+def delete(post_id):
+
+    return jsonify(
+        delete_post(post_id)
+    )
 
 @app.route("/api/posts", methods=["GET"])
 def get_posts():
