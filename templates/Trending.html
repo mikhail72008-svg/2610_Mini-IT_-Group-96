@@ -37,54 +37,45 @@
 
                     <!-- Feed Area -->
                     <section class="feed-container">
-                        <div class="feed-page-title">
-                            <h1>Trending</h1>
-                        </div>
+                     <div class="feed-page-title">
+                      <h1>Trending</h1>
+                     </div>
+{% for post in posts %}
 
-                        <article class="feed-post">
-                            <div class="feed-avatar avatar-red"><i class="bi bi-fire"></i></div>
-                            <div class="feed-post-body">
-                                <div class="feed-post-header">
-                                    <strong>#CampusRun</strong>
-                                    <span>Trending in MMU</span>
-                                </div>
-                                <p>Students are forming groups for Friday's campus run. Posts about routes, timing, and meetups are picking up fast.</p>
-                                <div class="feed-actions">
-                                    <button type="button"><i class="bi bi-heart"></i><span>86</span></button>
-                                    <button type="button"><i class="bi bi-chat"></i><span>19</span></button>
-                                </div>
-                            </div>
-                        </article>
+<article class="feed-post">
 
-                        <article class="feed-post">
-                            <div class="feed-avatar avatar-blue"><i class="bi bi-mortarboard"></i></div>
-                            <div class="feed-post-body">
-                                <div class="feed-post-header">
-                                    <strong>#FinalProject</strong>
-                                    <span>Trending in Classes</span>
-                                </div>
-                                <p>Submission week energy is here. People are sharing templates, consultation times, and last-minute survival tips.</p>
-                                <div class="feed-actions">
-                                    <button type="button"><i class="bi bi-heart"></i><span>104</span></button>
-                                    <button type="button"><i class="bi bi-chat"></i><span>31</span></button>
-                                </div>
-                            </div>
-                        </article>
+    <div class="feed-avatar avatar-red">
+        {{ post.username[0]|upper }}
+    </div>
 
-                        <article class="feed-post">
-                            <div class="feed-avatar avatar-green"><i class="bi bi-geo-alt"></i></div>
-                            <div class="feed-post-body">
-                                <div class="feed-post-header">
-                                    <strong>#LibrarySpot</strong>
-                                    <span>Trending near Library</span>
-                                </div>
-                                <p>Quiet corners, charger locations, and the best tables are suddenly everyone's favorite topic.</p>
-                                <div class="feed-actions">
-                                    <button type="button"><i class="bi bi-heart"></i><span>73</span></button>
-                                    <button type="button"><i class="bi bi-chat"></i><span>16</span></button>
-                                </div>
-                            </div>
-                        </article>
+    <div class="feed-post-body">
+
+        <div class="feed-post-header">
+            <strong>{{ post.username }}</strong>
+            <span>{{ post.time }}</span>
+        </div>
+
+        <p>{{ post.content }}</p>
+
+        <div class="feed-actions">
+
+            <button type="button">
+                <i class="bi bi-heart-fill"></i>
+                <span>{{ post.likes }}</span>
+            </button>
+
+            <button type="button">
+                <i class="bi bi-chat"></i>
+                <span>{{ post.comments }}</span>
+            </button>
+
+        </div>
+
+    </div>
+
+</article>
+
+{% endfor %}
                     </section>  
                 </main>
             </div>

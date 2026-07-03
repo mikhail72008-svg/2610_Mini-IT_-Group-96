@@ -684,3 +684,147 @@ document.querySelectorAll(".delete-btn").forEach(button => {
     });
 
 });
+// =========================
+// Comment Modal
+// =========================
+
+const commentModal = document.getElementById("commentModal");
+const closeCommentModal = document.getElementById("closeCommentModal");
+
+document.querySelectorAll(".comment-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        commentModal.classList.remove("hidden");
+
+    });
+
+});
+
+closeCommentModal.addEventListener("click", () => {
+
+    commentModal.classList.add("hidden");
+
+});
+
+commentModal.addEventListener("click", (e) => {
+
+    if (e.target === commentModal) {
+        commentModal.classList.add("hidden");
+    }
+
+});
+let currentPostId = null;
+
+document.querySelectorAll(".comment-btn").forEach(button => {
+
+    button.addEventListener("click", async () => {
+
+        currentPostId = button.dataset.postId;
+
+        commentModal.classList.remove("hidden");
+
+        const response = await fetch(`/api/comments/${currentPostId}`);
+        const comments = await response.json();
+
+        const commentsList = document.getElementById("commentsList");
+
+        commentsList.innerHTML = "";
+
+        comments.forEach(comment => {
+
+    commentsList.innerHTML += `
+        <div class="comment-item">
+
+            <div>
+                <strong>${comment[1]}</strong><br>
+                ${comment[2]}
+            </div>
+
+            <button
+                class="delete-comment-btn"
+                data-comment-id="${comment[0]}">
+                <i class="bi bi-trash3"></i>
+            </button>
+
+        </div>
+    `;
+
+});
+
+document.querySelectorAll(".delete-comment-btn").forEach(button => {
+
+    button.addEventListener("click", async () => {
+
+        const commentId = button.dataset.commentId;
+
+        if (!confirm("Delete this comment?")) {
+            return;
+        }
+
+        const response = await fetch(`/api/comments/${commentId}`, {
+            method: "DELETE"
+        });
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        button.closest(".comment-item").remove();
+
+        const commentCount = document.querySelector(
+    `.comment-btn[data-post-id="${currentPostId}"] .comment-count`
+);
+
+commentCount.textContent = Number(commentCount.textContent) - 1;
+
+    });
+
+});
+
+    });
+
+});
+
+document.getElementById("submitComment").addEventListener("click", async () => {
+
+    const comment = document.getElementById("commentText").value.trim();
+
+    if (comment === "") {
+        alert("Please enter a comment.");
+        return;
+    }
+
+    try {
+
+        const response = await fetch("/api/comments", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                post_id: currentPostId,
+                comment: comment
+            })
+        });
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        document.getElementById("commentText").value = "";
+        
+        const commentCount = document.querySelector(
+    `.comment-btn[data-post-id="${currentPostId}"] .comment-count`
+);
+
+commentCount.textContent = Number(commentCount.textContent) + 1;
+
+    } catch (error) {
+
+        console.error(error);
+        alert("Unable to add comment.");
+
+    }
+
+});

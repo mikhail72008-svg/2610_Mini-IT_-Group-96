@@ -23,10 +23,17 @@ def get_comments(post_id):
     conn = connect()
     cursor = conn.cursor()
 
-    cursor.execute(
-        "SELECT * FROM comments WHERE post_id=?",
-        (post_id,)
-    )
+    cursor.execute("""
+        SELECT
+            comments.id,
+            users.username,
+            comments.comment
+        FROM comments
+        JOIN users
+        ON comments.user_id = users.id
+        WHERE comments.post_id = ?
+        ORDER BY comments.id ASC
+    """, (post_id,))
 
     comments = cursor.fetchall()
 
@@ -48,3 +55,17 @@ def delete_comment(comment_id):
     conn.close()
 
     return {"message": "Comment deleted"}
+def get_comment_count(post_id):
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM comments WHERE post_id=?",
+        (post_id,)
+    )
+
+    count = cursor.fetchone()[0]
+
+    conn.close()
+
+    return count

@@ -92,12 +92,20 @@ def get_most_liked_posts():
     cursor = conn.cursor()
 
     cursor.execute("""
-    SELECT posts.*, COUNT(likes.id) as like_count
-    FROM posts
-    LEFT JOIN likes ON posts.id = likes.post_id
-    GROUP BY posts.id
-    ORDER BY like_count DESC
-    """)
+SELECT
+    posts.id,
+    users.username,
+    posts.content,
+    posts.created_at,
+    COUNT(likes.id) AS like_count
+FROM posts
+JOIN users
+ON posts.user_id = users.id
+LEFT JOIN likes
+ON posts.id = likes.post_id
+GROUP BY posts.id
+ORDER BY like_count DESC
+""")
 
     posts = cursor.fetchall()
     conn.close()

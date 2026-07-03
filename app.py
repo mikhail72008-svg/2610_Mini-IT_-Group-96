@@ -30,7 +30,8 @@ from likes import (
 from comments import (
     create_comment,
     get_comments,
-    delete_comment
+    delete_comment,
+    get_comment_count
 )
 
 app = Flask(__name__)
@@ -206,12 +207,16 @@ def get_like_route(post_id):
 
 @app.route("/api/comments", methods=["POST"])
 def add_comment():
+
+    if "user" not in session:
+        return jsonify({"message": "Please login first."}), 401
+
     data = request.get_json()
 
     return jsonify(
         create_comment(
             data["post_id"],
-            data["user_id"],
+            session["user"]["id"],
             data["comment"]
         )
     )
@@ -260,7 +265,8 @@ def homepage():
     "username": post[1],
     "content": post[2],
     "time": time_ago(post[3]),
-    "likes": get_like_count(post[0])["likes"]
+    "likes": get_like_count(post[0])["likes"],
+    "comments": get_comment_count(post[0])
 })
 
     return render_template(
@@ -283,7 +289,53 @@ def profile():
 
 @app.route("/Trending.html")
 def trending():
-    return render_template("Trending.html")
+
+    if "user" not in session:
+        return redirect(url_for("login_page"))
+
+    posts = get_most_liked_posts()
+
+    formatted_posts = []
+
+    for post in posts:
+        formatted_posts.append({
+            "id": post[0],
+            "username": post[1],
+            "content": post[2],
+            "time": time_ago(post[3]),
+            "likes": post[4],
+            "comments": get_comment_count(post[0])
+        })
+
+    return render_template(
+        "Trending.html",
+        username=session["user"]["username"],
+        posts=formatted_posts
+    )
+
+    if "user" not in session:
+        return redirect(url_for("login_page"))
+
+    posts = get_most_liked_posts()
+
+    formatted_posts = []
+
+    for post in posts:
+
+        formatted_posts.append({
+            "id": post[0],
+            "username": post[1],
+            "content": post[2],
+            "time": time_ago(post[3]),
+            "likes": post[4],   # already returned by SQL
+            "comments": get_comment_count(post[0])
+        })
+
+    return render_template(
+        "Trending.html",
+        username=session["user"]["username"],
+        posts=formatted_posts
+    )
 
 @app.route("/Map.html")
 def map_page():

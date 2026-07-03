@@ -73,9 +73,12 @@
         <span class="like-count">{{ post.likes }}</span>
     </button>
 
-    <button type="button">
-        <i class="bi bi-chat"></i>
-        <span>0</span>
+    <button
+    type="button"
+    class="comment-btn"
+    data-post-id="{{ post.id }}">
+    <i class="bi bi-chat"></i>
+    <span class="comment-count">{{ post.comments }}</span>
     </button>
 
     {% if post.username == username %}
@@ -124,6 +127,45 @@
     
   </div>
 </div>
+<div id="commentModal" class="modal-overlay hidden">
+
+    <div class="post-modal">
+
+        <div class="modal-header">
+            <h3>Comments</h3>
+            <button id="closeCommentModal" class="close-btn">&times;</button>
+        </div>
+
+        <div class="modal-body">
+
+            <div id="commentsList"></div>
+           
+
+    <div class="post-modal">
+
+        <div class="modal-header">
+            <h3>Comments</h3>
+            <button id="closeCommentModal" class="close-btn">&times;</button>
+        </div>
+
+        <div class="modal-body">
+
+            <div id="commentsList"></div>
+
+            <textarea
+                id="commentText"
+                placeholder="Write a comment..."
+                rows="3"></textarea>
+
+        </div>
+
+        <div class="modal-footer">
+            <button id="submitComment" class="post-submit-btn">
+                Comment
+            </button>
+        </div>
+
+    </div>
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
