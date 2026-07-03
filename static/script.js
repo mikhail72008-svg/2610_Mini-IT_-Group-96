@@ -395,11 +395,12 @@ submitPostBtn.addEventListener('click', async () => {
 
 });
 // Search Button Functionality
-const searchBtn = document.getElementById('searchBtn');
-if (searchBtn) {
-  searchBtn.addEventListener('click', () => {
-    window.location.href = '/Search.html';
-  });
+const searchPageBtn = document.getElementById('searchBtn');
+
+if (searchPageBtn) {
+    searchPageBtn.addEventListener('click', () => {
+        window.location.href = '/Search.html';
+    });
 }
 
 // Search Page Functionality
@@ -408,79 +409,6 @@ const performSearchBtn = document.getElementById('performSearchBtn');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const searchResults = document.getElementById('searchResults');
 
-let currentFilter = 'all';
-
-if (searchInput && performSearchBtn) {
-  // Search on button click
-  performSearchBtn.addEventListener('click', performSearch);
-  
-  // Search on Enter key
-  searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      performSearch();
-    }
-  });
-}
-
-if (filterBtns.length > 0) {
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Remove active class from all buttons
-      filterBtns.forEach(b => b.classList.remove('active'));
-      // Add active class to clicked button
-      btn.classList.add('active');
-      currentFilter = btn.getAttribute('data-filter');
-      performSearch();
-    });
-  });
-}
-
-function performSearch() {
-  const query = searchInput.value.trim();
-  if (!query) {
-    searchResults.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">Enter a search term to find posts, users, or topics.</p>';
-    return;
-  }
-  
-  // Mock search results - in a real app, this would call an API
-  let results = [];
-  
-  if (currentFilter === 'all' || currentFilter === 'posts') {
-    results.push({
-      type: 'post',
-      title: `Posts containing "${query}"`,
-      content: 'Sample post result...'
-    });
-  }
-  
-  if (currentFilter === 'all' || currentFilter === 'users') {
-    results.push({
-      type: 'user',
-      title: `Users matching "${query}"`,
-      content: 'Sample user result...'
-    });
-  }
-  
-  if (currentFilter === 'all' || currentFilter === 'topics') {
-    results.push({
-      type: 'topic',
-      title: `Topics related to "${query}"`,
-      content: 'Sample topic result...'
-    });
-  }
-  
-  // Display results
-  if (results.length === 0) {
-    searchResults.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">No results found.</p>';
-  } else {
-    searchResults.innerHTML = results.map(result => `
-      <div class="search-result-item" style="padding: 20px; border-bottom: 1px solid #dee2e6;">
-        <div style="font-weight: bold; margin-bottom: 8px;">${result.title}</div>
-        <div style="color: #6c757d;">${result.content}</div>
-      </div>
-    `).join('');
-  }
-}
 // =========================
 // LOGIN FUNCTIONALITY
 // =========================
@@ -690,141 +618,202 @@ document.querySelectorAll(".delete-btn").forEach(button => {
 
 const commentModal = document.getElementById("commentModal");
 const closeCommentModal = document.getElementById("closeCommentModal");
+const submitCommentBtn = document.getElementById("submitComment");
 
-document.querySelectorAll(".comment-btn").forEach(button => {
+let currentPostId = null;
 
-    button.addEventListener("click", () => {
+if (commentModal && closeCommentModal && submitCommentBtn) {
 
-        commentModal.classList.remove("hidden");
+    // Open modal
+    document.querySelectorAll(".comment-btn").forEach(button => {
+
+        button.addEventListener("click", async () => {
+
+            currentPostId = button.dataset.postId;
+
+            commentModal.classList.remove("hidden");
+
+            const response = await fetch(`/api/comments/${currentPostId}`);
+            const comments = await response.json();
+
+            const commentsList = document.getElementById("commentsList");
+            commentsList.innerHTML = "";
+
+            comments.forEach(comment => {
+
+                commentsList.innerHTML += `
+                    <div class="comment-item">
+
+                        <div>
+                            <strong>${comment[1]}</strong><br>
+                            ${comment[2]}
+                        </div>
+
+                        <button
+                            class="delete-comment-btn"
+                            data-comment-id="${comment[0]}">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+
+                    </div>
+                `;
+
+            });
+
+            // Delete comment
+            document.querySelectorAll(".delete-comment-btn").forEach(btn => {
+
+                btn.addEventListener("click", async () => {
+
+                    if (!confirm("Delete this comment?")) return;
+
+                    const response = await fetch(
+                        `/api/comments/${btn.dataset.commentId}`,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
+                    const result = await response.json();
+
+                    btn.closest(".comment-item").remove();
+
+                    const count = document.querySelector(
+                        `.comment-btn[data-post-id="${currentPostId}"] .comment-count`
+                    );
+
+                    count.textContent = Number(count.textContent) - 1;
+
+                });
+
+            });
+
+        });
 
     });
 
-});
-
-closeCommentModal.addEventListener("click", () => {
-
-    commentModal.classList.add("hidden");
-
-});
-
-commentModal.addEventListener("click", (e) => {
-
-    if (e.target === commentModal) {
+    // Close modal
+    closeCommentModal.addEventListener("click", () => {
         commentModal.classList.add("hidden");
-    }
+    });
 
-});
-let currentPostId = null;
+    commentModal.addEventListener("click", (e) => {
 
-document.querySelectorAll(".comment-btn").forEach(button => {
+        if (e.target === commentModal) {
+            commentModal.classList.add("hidden");
+        }
 
-    button.addEventListener("click", async () => {
+    });
 
-        currentPostId = button.dataset.postId;
+    // Add comment
+    submitCommentBtn.addEventListener("click", async () => {
 
-        commentModal.classList.remove("hidden");
+        const text = document.getElementById("commentText").value.trim();
 
-        const response = await fetch(`/api/comments/${currentPostId}`);
-        const comments = await response.json();
+        if (text === "") return;
 
-        const commentsList = document.getElementById("commentsList");
+        const response = await fetch("/api/comments", {
 
-        commentsList.innerHTML = "";
+            method: "POST",
 
-        comments.forEach(comment => {
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-    commentsList.innerHTML += `
-        <div class="comment-item">
+            body: JSON.stringify({
+                post_id: currentPostId,
+                comment: text
+            })
 
-            <div>
-                <strong>${comment[1]}</strong><br>
-                ${comment[2]}
+        });
+
+        await response.json();
+
+        document.getElementById("commentText").value = "";
+
+        const count = document.querySelector(
+            `.comment-btn[data-post-id="${currentPostId}"] .comment-count`
+        );
+
+        count.textContent = Number(count.textContent) + 1;
+
+        // Reload comments
+        document.querySelector(
+            `.comment-btn[data-post-id="${currentPostId}"]`
+        ).click();
+
+    });
+
+}
+
+// =========================
+// Search
+// =========================
+
+console.log("Search JS loaded");
+
+const searchBtn = document.getElementById("performSearchBtn");
+
+if (searchBtn) {
+
+    searchBtn.addEventListener("click", async () => {
+      
+      console.log("Button clicked");
+
+        const keyword = document.getElementById("searchInput").value.trim();
+
+        if (keyword === "") return;
+
+        const usersResponse = await fetch(`/api/search/users/${keyword}`);
+        const postsResponse = await fetch(`/api/search/posts/${keyword}`);
+
+        const users = await usersResponse.json();
+        const posts = await postsResponse.json();
+
+        const results = document.getElementById("searchResults");
+
+        results.innerHTML = "";
+
+        // Users
+        results.innerHTML += `<h3>Users</h3>`;
+
+        if (users.length === 0) {
+            results.innerHTML += "<p>No users found.</p>";
+        }
+
+        users.forEach(user => {
+
+            results.innerHTML += `
+                <div class="feed-post">
+                    <strong>${user[1]}</strong>
+                </div>
+            `;
+
+        });
+
+        // Posts
+        results.innerHTML += `<h3>Posts</h3>`;
+
+        if (posts.length === 0) {
+            results.innerHTML += "<p>No posts found.</p>";
+        }
+
+        posts.forEach(post => {
+
+    results.innerHTML += `
+        <div class="feed-post">
+
+            <div class="feed-post-header">
+                <strong>${post[1]}</strong>
             </div>
 
-            <button
-                class="delete-comment-btn"
-                data-comment-id="${comment[0]}">
-                <i class="bi bi-trash3"></i>
-            </button>
+            <p>${post[2]}</p>
 
         </div>
     `;
 
 });
 
-document.querySelectorAll(".delete-comment-btn").forEach(button => {
-
-    button.addEventListener("click", async () => {
-
-        const commentId = button.dataset.commentId;
-
-        if (!confirm("Delete this comment?")) {
-            return;
-        }
-
-        const response = await fetch(`/api/comments/${commentId}`, {
-            method: "DELETE"
-        });
-
-        const result = await response.json();
-
-        alert(result.message);
-
-        button.closest(".comment-item").remove();
-
-        const commentCount = document.querySelector(
-    `.comment-btn[data-post-id="${currentPostId}"] .comment-count`
-);
-
-commentCount.textContent = Number(commentCount.textContent) - 1;
-
     });
 
-});
-
-    });
-
-});
-
-document.getElementById("submitComment").addEventListener("click", async () => {
-
-    const comment = document.getElementById("commentText").value.trim();
-
-    if (comment === "") {
-        alert("Please enter a comment.");
-        return;
-    }
-
-    try {
-
-        const response = await fetch("/api/comments", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                post_id: currentPostId,
-                comment: comment
-            })
-        });
-
-        const result = await response.json();
-
-        alert(result.message);
-
-        document.getElementById("commentText").value = "";
-        
-        const commentCount = document.querySelector(
-    `.comment-btn[data-post-id="${currentPostId}"] .comment-count`
-);
-
-commentCount.textContent = Number(commentCount.textContent) + 1;
-
-    } catch (error) {
-
-        console.error(error);
-        alert("Unable to add comment.");
-
-    }
-
-});
+}

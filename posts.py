@@ -117,11 +117,22 @@ def search_posts(keyword):
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT * FROM posts WHERE content LIKE ?",
+        """
+        SELECT
+            posts.id,
+            users.username,
+            posts.content,
+            posts.created_at
+        FROM posts
+        JOIN users
+            ON posts.user_id = users.id
+        WHERE posts.content LIKE ?
+        """,
         ('%' + keyword + '%',)
     )
 
     posts = cursor.fetchall()
+
     conn.close()
 
     return posts
