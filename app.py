@@ -285,7 +285,28 @@ def search():
 
 @app.route("/Profile.html")
 def profile():
-    return render_template("Profile.html")
+
+    if "user" not in session:
+        return redirect(url_for("login_page"))
+
+    posts = get_user_posts(session["user"]["id"])
+
+    formatted_posts = []
+
+    for post in posts:
+        formatted_posts.append({
+            "id": post[0],
+            "content": post[2],
+            "time": time_ago(post[3]),
+            "likes": get_like_count(post[0])["likes"],
+            "comments": get_comment_count(post[0])
+        })
+
+    return render_template(
+        "Profile.html",
+        username=session["user"]["username"],
+        posts=formatted_posts
+    )
 
 @app.route("/Trending.html")
 def trending():
@@ -313,29 +334,7 @@ def trending():
         posts=formatted_posts
     )
 
-    if "user" not in session:
-        return redirect(url_for("login_page"))
 
-    posts = get_most_liked_posts()
-
-    formatted_posts = []
-
-    for post in posts:
-
-        formatted_posts.append({
-            "id": post[0],
-            "username": post[1],
-            "content": post[2],
-            "time": time_ago(post[3]),
-            "likes": post[4],   # already returned by SQL
-            "comments": get_comment_count(post[0])
-        })
-
-    return render_template(
-        "Trending.html",
-        username=session["user"]["username"],
-        posts=formatted_posts
-    )
 
 @app.route("/Map.html")
 def map_page():

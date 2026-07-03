@@ -72,21 +72,7 @@ def get_user_posts(user_id):
 
     return posts
 
-    cursor.execute(
-        """
-        SELECT *
-        FROM posts
-        WHERE user_id = ?
-        ORDER BY created_at DESC
-        """,
-        (user_id,)
-    )
 
-    posts = cursor.fetchall()
-
-    conn.close()
-
-    return posts
 def get_most_liked_posts():
     conn = connect()
     cursor = conn.cursor()

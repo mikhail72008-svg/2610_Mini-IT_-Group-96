@@ -41,13 +41,20 @@
                      <div class="profile-banner"></div>
 
                       <div class="profile-header">
-                       <img src="https://via.placeholder.com/120" class="profile-avatar">
-                       <button class="edit-btn" id="openEditProfile">Edit Profile</button>
-                      </div>
+
+    <div class="profile-avatar avatar-blue">
+        {{ username[0]|upper }}
+    </div>
+
+    <button class="edit-btn" id="openEditProfile">
+        Edit Profile
+    </button>
+
+</div>
 
                       <div class="profile-info">
-                        <h1 class="profile-name" id="profileName">Student Name</h1> <!-- Showcase name of user -->
-                        <p class="profile-handle">@mmu_dev96</p>   <!-- Showcase email of user -->
+                        <h1 class="profile-name" id="profileName">{{ username }}</h1> <!-- Showcase name of user -->
+                        <p class="profile-handle">@{{ username }}</p>   <!-- Showcase email of user -->
                         
                         <!-- Showcase bio of user -->
                         <p class="profile-bio" id="profileBio"> 
@@ -56,11 +63,10 @@
                         </p>
                        
                         <!-- Showcase number of followers and following -->
-                       <div class="profile-stats">
-                        <span class="stat"><strong>240</strong> Following</span>
-                        <span class="stat"><strong>185</strong> Followers</span>
-                       </div>
-                      </div>
+                        <div class="profile-stats">
+                            <span class="stat"><strong>{{ posts|length }}</strong> Posts</span>
+                        </div>
+                      
 
                     </section>
                     <div class="profile-modal" id="editProfileModal">
@@ -93,6 +99,49 @@
                         </div>
                       </div>
                     </div>
+                <section class="feed-container">
+
+{% for post in posts %}
+
+<article class="feed-post">
+
+    <div class="feed-post-body">
+
+        <div class="feed-post-header">
+            <strong>{{ username }}</strong>
+            <span>{{ post.time }}</span>
+        </div>
+
+        <p>{{ post.content }}</p>
+
+        <div class="feed-actions">
+
+    <button type="button">
+        <i class="bi bi-heart"></i>
+        <span>{{ post.likes }}</span>
+    </button>
+
+    <button type="button">
+        <i class="bi bi-chat"></i>
+        <span>{{ post.comments }}</span>
+    </button>
+
+    <button
+        type="button"
+        class="delete-btn"
+        data-post-id="{{ post.id }}">
+        <i class="bi bi-trash3"></i>
+    </button>
+
+</div>
+
+    </div>
+
+</article>
+
+{% endfor %}
+
+</section>    
                 </main>
             </div>
         </div>
