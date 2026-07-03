@@ -903,3 +903,7 @@ a {
     color: #ef4444;
     transform: scale(1.15);
 }
+
+.logout-icon {
+    margin-top: auto;
+}
