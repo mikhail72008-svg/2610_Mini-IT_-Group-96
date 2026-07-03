@@ -115,11 +115,16 @@ def login():
 @app.route("/api/posts", methods=["POST"])
 def create():
 
+    if "user" not in session:
+        return jsonify({
+            "message": "Please login first."
+        }), 401
+
     data = request.get_json()
 
     return jsonify(
         create_post(
-            data["user_id"],
+            session["user"]["id"],
             data["content"]
         )
     )

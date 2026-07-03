@@ -373,9 +373,8 @@ submitPostBtn.addEventListener('click', async () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                user_id: 1,
-                content: content
-            })
+            content: content
+          })  
         });
 
         const result = await response.json();
