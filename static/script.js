@@ -617,22 +617,29 @@ document.querySelectorAll(".like-btn").forEach(button => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    user_id: 1,
-                    post_id: postId
-                })
+                post_id: postId
+              })
             });
 
             const result = await response.json();
 
-if (result.message === "Post liked" || result.message === "Already liked") {
+const likeResponse = await fetch(`/api/likes/${postId}`);
+const likeData = await likeResponse.json();
 
-    const likeResponse = await fetch(`/api/likes/${postId}`);
-    const likeData = await likeResponse.json();
+button.querySelector(".like-count").textContent = likeData.likes;
 
-    button.querySelector(".like-count").textContent = likeData.likes;
+const icon = button.querySelector("i");
+
+if (result.message === "Post liked") {
+    icon.classList.remove("bi-heart");
+    icon.classList.add("bi-heart-fill");
+}
+else if (result.message === "Post unliked") {
+    icon.classList.remove("bi-heart-fill");
+    icon.classList.add("bi-heart");
 }
 
-alert(result.message);
+// alert(result.message);
 
         } catch (error) {
             console.error(error);

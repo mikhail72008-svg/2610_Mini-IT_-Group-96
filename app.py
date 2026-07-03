@@ -22,8 +22,10 @@ from posts import (
 from likes import (
     like_post,
     unlike_post,
-    get_like_count
+    get_like_count,
+    has_liked
 )
+
 
 from comments import (
     create_comment,
@@ -151,6 +153,7 @@ def most_liked():
     return jsonify(get_most_liked_posts())
 
 
+
 # =========================
 # SEARCH ROUTES
 # =========================
@@ -169,32 +172,31 @@ def search_user_route(keyword):
 # LIKE ROUTES
 # =========================
 
+# =========================
+# LIKE ROUTES
+# =========================
+
 @app.route("/api/likes", methods=["POST"])
 def like():
+
+    if "user" not in session:
+        return jsonify({"message": "Please login first."}), 401
+
     data = request.get_json()
 
-    return jsonify(
-        like_post(
-            data["user_id"],
-            data["post_id"]
-        )
-    )
+    user_id = session["user"]["id"]
+    post_id = data["post_id"]
 
+    if has_liked(user_id, post_id):
+        result = unlike_post(user_id, post_id)
+    else:
+        result = like_post(user_id, post_id)
 
-@app.route("/api/likes", methods=["DELETE"])
-def unlike():
-    data = request.get_json()
-
-    return jsonify(
-        unlike_post(
-            data["user_id"],
-            data["post_id"]
-        )
-    )
+    return jsonify(result)
 
 
 @app.route("/api/likes/<int:post_id>", methods=["GET"])
-def get_likes(post_id):
+def get_like_route(post_id):
     return jsonify(get_like_count(post_id))
 
 

@@ -53,3 +53,17 @@ def get_like_count(post_id):
     conn.close()
 
     return {"likes": count}
+def has_liked(user_id, post_id):
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM likes WHERE user_id=? AND post_id=?",
+        (user_id, post_id)
+    )
+
+    liked = cursor.fetchone() is not None
+
+    conn.close()
+
+    return liked
