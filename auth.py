@@ -86,6 +86,28 @@ def login_user(email, password):
         "message": "Invalid email or password."
     }
 
+# =========================
+# GET USER PROFILE
+# =========================
+def get_user_profile(user_id):
+
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT username, bio
+        FROM users
+        WHERE id = ?
+        """,
+        (user_id,)
+    )
+
+    user = cursor.fetchone()
+
+    conn.close()
+
+    return user
 
 # =========================
 # SEARCH USERS
@@ -107,3 +129,46 @@ def search_users(keyword):
     conn.close()
 
     return users
+
+# =========================
+# UPDATE PROFILE
+# =========================
+def update_profile(user_id, username, bio):
+
+    conn = connect()
+    cursor = conn.cursor()
+
+    # Check if username already exists
+    cursor.execute(
+        """
+        SELECT id
+        FROM users
+        WHERE username = ?
+        AND id != ?
+        """,
+        (username, user_id)
+    )
+
+    if cursor.fetchone():
+        conn.close()
+        return {
+            "status": "error",
+            "message": "Username already exists."
+        }
+
+    cursor.execute(
+        """
+        UPDATE users
+        SET username = ?, bio = ?
+        WHERE id = ?
+        """,
+        (username, bio, user_id)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return {
+        "status": "success",
+        "message": "Profile updated successfully."
+    }

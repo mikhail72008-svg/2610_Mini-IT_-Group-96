@@ -7,7 +7,9 @@ from database import create_tables
 from auth import (
     register_user,
     login_user,
-    search_users
+    search_users,
+    update_profile,
+    get_user_profile
 )
 
 from posts import (
@@ -161,7 +163,30 @@ def user_posts(user_id):
 def most_liked():
     return jsonify(get_most_liked_posts())
 
+# =========================
+# PROFILE ROUTES
+# =========================
 
+@app.route("/api/profile/update", methods=["POST"])
+def update_profile_route():
+
+    if "user" not in session:
+        return jsonify({
+            "message": "Please login first."
+        }), 401
+
+    data = request.get_json()
+
+    result = update_profile(
+        session["user"]["id"],
+        data["username"],
+        data["bio"]
+    )
+
+    if result["status"] == "success":
+        session["user"]["username"] = data["username"]
+
+    return jsonify(result)
 
 # =========================
 # SEARCH ROUTES
@@ -363,12 +388,18 @@ def profile():
     if profile_id is None:
         profile_id = session["user"]["id"]
 
-    posts = get_user_posts(profile_id)
+    # Get profile information
+    user = get_user_profile(profile_id)
 
-    if posts:
-        profile_username = posts[0][1]
+    if user:
+        profile_username = user[0]
+        profile_bio = user[1]
     else:
         profile_username = "Unknown User"
+        profile_bio = ""
+
+    # Get user's posts
+    posts = get_user_posts(profile_id)
 
     formatted_posts = []
 
@@ -384,11 +415,11 @@ def profile():
     return render_template(
         "Profile.html",
         username=profile_username,
+        bio=profile_bio,
         posts=formatted_posts,
         own_profile=(profile_id == session["user"]["id"]),
         profile_id=profile_id
     )
-
 @app.route("/Trending.html")
 def trending():
 

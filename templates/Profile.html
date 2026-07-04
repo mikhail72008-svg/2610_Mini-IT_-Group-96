@@ -74,11 +74,10 @@
                         <p class="profile-handle">@{{ username }}</p>   <!-- Showcase email of user -->
                         
                         <!-- Showcase bio of user -->
-                        <p class="profile-bio" id="profileBio"> 
-                         IT Student @ MMU Cyberjaya 💻 | Figuring out VS Code one Git push at a time. <br>
-                         Always hitting the gym, benching heavy 🏋️‍♂️ | Music fueled by Spotify 🎵
+                        <p class="profile-bio" id="profileBio">
+                            {{ bio }}
                         </p>
-                       
+
                         <!-- Showcase number of followers and following -->
                         <div class="profile-stats">
                             <span class="stat"><strong>{{ posts|length }}</strong> Posts</span>
@@ -93,10 +92,10 @@
 
                         <form class="profile-edit-form">
                           <label for="editName">Name</label>
-                          <input type="text" id="editName" value="Student Name">
+                          <input type="text" id="editName" value="{{ username }}">
 
                           <label for="editBio">Bio</label>
-                          <textarea id="editBio" rows="4">IT Student @ MMU Cyberjaya | Figuring out VS Code one Git push at a time.</textarea>
+                          <textarea id="editBio" rows="4">{{ bio }}</textarea>
 
                           <button type="button" class="save-profile-btn" id="saveEditProfile">Save Changes</button>
                         </form>

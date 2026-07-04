@@ -270,11 +270,58 @@ if (openEditProfileButton && editProfileModal && closeEditProfileButton) {
 }
 
 if (saveEditProfileButton) {
-  saveEditProfileButton.addEventListener('click', () => {
-    document.getElementById('profileName').textContent = document.getElementById('editName').value;
-    document.getElementById('profileBio').textContent = document.getElementById('editBio').value;
-    editProfileModal.classList.remove('show');
-  });
+
+    saveEditProfileButton.addEventListener("click", async () => {
+
+        const username = document.getElementById("editName").value.trim();
+        const bio = document.getElementById("editBio").value.trim();
+
+        if (username === "") {
+            alert("Username cannot be empty.");
+            return;
+        }
+
+        try {
+
+            const response = await fetch("/api/profile/update", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    username: username,
+                    bio: bio
+                })
+
+            });
+
+            const result = await response.json();
+
+            alert(result.message);
+
+            if (result.status === "success") {
+
+                document.getElementById("profileName").textContent = username;
+                document.getElementById("profileBio").textContent = bio;
+
+                editProfileModal.classList.remove("show");
+
+                location.reload();
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+            alert("Unable to update profile.");
+
+        }
+
+    });
+
 }
 
 // Profile Picture Selection
