@@ -133,14 +133,20 @@
 
         <div class="feed-actions">
 
-    <button type="button">
+    <button
+        type="button"
+        class="like-btn"
+        data-post-id="{{ post.id }}">
         <i class="bi bi-heart"></i>
-        <span>{{ post.likes }}</span>
+        <span class="like-count">{{ post.likes }}</span>
     </button>
 
-    <button type="button">
+    <button
+        type="button"
+        class="comment-btn"
+        data-post-id="{{ post.id }}">
         <i class="bi bi-chat"></i>
-        <span>{{ post.comments }}</span>
+        <span class="comment-count">{{ post.comments }}</span>
     </button>
 
     <button
@@ -163,6 +169,7 @@
             </div>
         </div>
     </div>
+    {% include "comment_modal.html" %}
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
