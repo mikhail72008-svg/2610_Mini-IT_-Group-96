@@ -903,8 +903,10 @@ a {
 }
 
 .image-scroll-container img {
-  height: 200px;
-  border-radius: 5px;
+    width: auto;
+    height: 280px;      /* was 200px */
+    border-radius: 8px;
+    object-fit: contain;
 }
 
 /* Scrollbar for the gallery */

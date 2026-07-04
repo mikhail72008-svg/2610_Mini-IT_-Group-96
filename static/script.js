@@ -222,10 +222,16 @@ function openGallery(facilityKey) {
     const img = document.createElement('img');
     img.src = STATIC + src.split('/').pop();
     img.alt = data.title;
-    if (src.includes('fci5.png') || src.includes('fom4.png')) {
-      img.style.height = '200px';
-      img.style.marginTop = '290px';
-    }
+    if (
+    src.includes('fci5.png') ||
+    src.includes('fom4.png') ||
+    src.includes('foe3.jpg') ||
+    src.includes('fcm2.jpg') ||
+    src.includes('stad2.jpg')
+) {
+    img.style.height = '380px';
+    img.style.marginTop = '0px';
+}
 
     const caption = document.createElement('figcaption');
     caption.textContent = data.captions && data.captions[index] ? data.captions[index] : data.description;
