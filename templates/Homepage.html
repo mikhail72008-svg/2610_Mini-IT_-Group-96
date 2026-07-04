@@ -129,45 +129,7 @@
     
   </div>
 </div>
-<div id="commentModal" class="modal-overlay hidden">
-
-    <div class="post-modal">
-
-        <div class="modal-header">
-            <h3>Comments</h3>
-            <button id="closeCommentModal" class="close-btn">&times;</button>
-        </div>
-
-        <div class="modal-body">
-
-            <div id="commentsList"></div>
-           
-
-    <div class="post-modal">
-
-        <div class="modal-header">
-            <h3>Comments</h3>
-            <button id="closeCommentModal" class="close-btn">&times;</button>
-        </div>
-
-        <div class="modal-body">
-
-            <div id="commentsList"></div>
-
-            <textarea
-                id="commentText"
-                placeholder="Write a comment..."
-                rows="3"></textarea>
-
-        </div>
-
-        <div class="modal-footer">
-            <button id="submitComment" class="post-submit-btn">
-                Comment
-            </button>
-        </div>
-
-    </div>
+{% include "comment_modal.html" %}
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

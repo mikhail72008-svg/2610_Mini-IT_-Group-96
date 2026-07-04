@@ -688,24 +688,38 @@ if (commentModal && closeCommentModal && submitCommentBtn) {
 
             comments.forEach(comment => {
 
-                commentsList.innerHTML += `
-                    <div class="comment-item">
+    commentsList.innerHTML += `
+        <div class="comment-item">
 
-                        <div>
-                            <strong>${comment[1]}</strong><br>
-                            ${comment[2]}
-                        </div>
+            <div class="comment-left">
 
-                        <button
-                            class="delete-comment-btn"
-                            data-comment-id="${comment[0]}">
-                            <i class="bi bi-trash3"></i>
-                        </button>
+                <div class="comment-avatar">
+                    ${comment[1][0].toUpperCase()}
+                </div>
 
-                    </div>
-                `;
+                <div class="comment-content">
 
-            });
+                    <strong>${comment[1]}</strong>
+
+                    <p>${comment[2]}</p>
+
+                </div>
+
+            </div>
+
+            <button
+                class="delete-comment-btn"
+                data-comment-id="${comment[0]}"
+                title="Delete Comment">
+
+                <i class="bi bi-trash3"></i>
+
+            </button>
+
+        </div>
+    `;
+
+});
 
             // Delete comment
             document.querySelectorAll(".delete-comment-btn").forEach(btn => {
@@ -804,8 +818,8 @@ const searchBtn = document.getElementById("performSearchBtn");
 if (searchBtn) {
 
     searchBtn.addEventListener("click", async () => {
-      
-      console.log("Button clicked");
+
+        console.log("Button clicked");
 
         const keyword = document.getElementById("searchInput").value.trim();
 
@@ -821,7 +835,11 @@ if (searchBtn) {
 
         results.innerHTML = "";
 
+        // =========================
         // Users
+        // =========================
+
+        results.innerHTML += `<div id="usersSection">`;
         results.innerHTML += `<h3>Users</h3>`;
 
         if (users.length === 0) {
@@ -830,23 +848,23 @@ if (searchBtn) {
 
         users.forEach(user => {
 
-    results.innerHTML += `
-        <div class="feed-post">
+            results.innerHTML += `
+                <div class="feed-post">
+                    <a href="/Profile.html?user=${user[0]}" class="profile-link">
+                        <strong>${user[1]}</strong>
+                    </a>
+                </div>
+            `;
 
-            <a
-                href="/Profile.html?user=${user[0]}"
-                class="profile-link">
+        });
 
-                <strong>${user[1]}</strong>
+        results.innerHTML += `</div>`;
 
-            </a>
-
-        </div>
-    `;
-
-});
-
+        // =========================
         // Posts
+        // =========================
+
+        results.innerHTML += `<div id="postsSection">`;
         results.innerHTML += `<h3>Posts</h3>`;
 
         if (posts.length === 0) {
@@ -855,19 +873,27 @@ if (searchBtn) {
 
         posts.forEach(post => {
 
-    results.innerHTML += `
-        <div class="feed-post">
+            results.innerHTML += `
+                <a href="/Profile.html?user=${post[3]}"
+                   class="profile-link"
+                   style="text-decoration:none;color:inherit;">
 
-            <div class="feed-post-header">
-                <strong>${post[1]}</strong>
-            </div>
+                    <div class="feed-post">
 
-            <p>${post[2]}</p>
+                        <div class="feed-post-header">
+                            <strong>${post[1]}</strong>
+                        </div>
 
-        </div>
-    `;
+                        <p>${post[2]}</p>
 
-});
+                    </div>
+
+                </a>
+            `;
+
+        });
+
+        results.innerHTML += `</div>`;
 
     });
 

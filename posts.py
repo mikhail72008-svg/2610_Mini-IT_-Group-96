@@ -111,10 +111,11 @@ def search_posts(keyword):
     cursor.execute(
         """
         SELECT
-            posts.id,
-            users.username,
-            posts.content,
-            posts.created_at
+          posts.id,
+          users.username,
+          posts.content,
+          users.id,
+    posts.created_at
         FROM posts
         JOIN users
             ON posts.user_id = users.id
