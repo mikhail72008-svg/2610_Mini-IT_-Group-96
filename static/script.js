@@ -783,13 +783,21 @@ if (searchBtn) {
 
         users.forEach(user => {
 
-            results.innerHTML += `
-                <div class="feed-post">
-                    <strong>${user[1]}</strong>
-                </div>
-            `;
+    results.innerHTML += `
+        <div class="feed-post">
 
-        });
+            <a
+                href="/Profile.html?user=${user[0]}"
+                class="profile-link">
+
+                <strong>${user[1]}</strong>
+
+            </a>
+
+        </div>
+    `;
+
+});
 
         // Posts
         results.innerHTML += `<h3>Posts</h3>`;
@@ -813,6 +821,62 @@ if (searchBtn) {
     `;
 
 });
+
+    });
+
+}
+// =========================
+// Follow User
+// =========================
+
+const followBtn = document.getElementById("followBtn");
+
+if (followBtn) {
+
+  // Check follow status when page loads
+(async () => {
+
+    const response = await fetch(
+        `/api/follow/${followBtn.dataset.userId}`
+    );
+
+    const result = await response.json();
+
+    if (result.following) {
+        followBtn.textContent = "Following";
+    } else {
+        followBtn.textContent = "Follow";
+    }
+
+})();
+
+    followBtn.addEventListener("click", async () => {
+
+        const response = await fetch("/api/follow", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                following_id: followBtn.dataset.userId
+            })
+
+        });
+
+        const result = await response.json();
+
+        if (result.message === "User followed") {
+
+            followBtn.textContent = "Following";
+
+        } else if (result.message === "User unfollowed") {
+
+            followBtn.textContent = "Follow";
+
+        }
 
     });
 

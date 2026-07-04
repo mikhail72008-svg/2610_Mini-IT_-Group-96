@@ -34,6 +34,14 @@ from comments import (
     get_comment_count
 )
 
+
+from follow import (
+    follow_user,
+    unfollow_user,
+    is_following,
+    get_following_posts
+)
+
 app = Flask(__name__)
 app.secret_key = "mmuhub_secret_key"
 CORS(app)
@@ -169,9 +177,6 @@ def search_user_route(keyword):
     return jsonify(search_users(keyword))
 
 
-# =========================
-# LIKE ROUTES
-# =========================
 
 # =========================
 # LIKE ROUTES
@@ -246,6 +251,47 @@ def home():
 
 
 # =========================
+# FOLLOW ROUTES
+# =========================
+
+@app.route("/api/follow", methods=["POST"])
+def follow():
+
+    if "user" not in session:
+        return jsonify({"message": "Please login first."}), 401
+
+    data = request.get_json()
+
+    follower_id = session["user"]["id"]
+    following_id = data["following_id"]
+
+    if follower_id == following_id:
+        return jsonify({"message": "You cannot follow yourself."})
+
+    if is_following(follower_id, following_id):
+        return jsonify(
+            unfollow_user(follower_id, following_id)
+        )
+
+    return jsonify(
+        follow_user(follower_id, following_id)
+    )
+
+@app.route("/api/follow/<int:user_id>", methods=["GET"])
+def check_follow(user_id):
+
+    if "user" not in session:
+        return jsonify({"following": False})
+
+    return jsonify({
+        "following": is_following(
+            session["user"]["id"],
+            user_id
+        )
+    })
+
+
+# =========================
 # PAGE ROUTES
 # =========================
 
@@ -277,7 +323,30 @@ def homepage():
 
 @app.route("/Following.html")
 def following():
-    return render_template("Following.html")
+
+    if "user" not in session:
+        return redirect(url_for("login_page"))
+
+    posts = get_following_posts(session["user"]["id"])
+
+    formatted_posts = []
+
+    for post in posts:
+
+        formatted_posts.append({
+            "id": post[0],
+            "username": post[1],
+            "content": post[2],
+            "time": time_ago(post[3]),
+            "likes": get_like_count(post[0])["likes"],
+            "comments": get_comment_count(post[0])
+        })
+
+    return render_template(
+        "Following.html",
+        username=session["user"]["username"],
+        posts=formatted_posts
+    )
 
 @app.route("/Search.html")
 def search():
@@ -289,7 +358,17 @@ def profile():
     if "user" not in session:
         return redirect(url_for("login_page"))
 
-    posts = get_user_posts(session["user"]["id"])
+    profile_id = request.args.get("user", type=int)
+
+    if profile_id is None:
+        profile_id = session["user"]["id"]
+
+    posts = get_user_posts(profile_id)
+
+    if posts:
+        profile_username = posts[0][1]
+    else:
+        profile_username = "Unknown User"
 
     formatted_posts = []
 
@@ -304,8 +383,10 @@ def profile():
 
     return render_template(
         "Profile.html",
-        username=session["user"]["username"],
-        posts=formatted_posts
+        username=profile_username,
+        posts=formatted_posts,
+        own_profile=(profile_id == session["user"]["id"]),
+        profile_id=profile_id
     )
 
 @app.route("/Trending.html")

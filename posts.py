@@ -60,10 +60,16 @@ def get_user_posts(user_id):
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT *
+        SELECT
+            posts.id,
+            users.username,
+            posts.content,
+            posts.created_at
         FROM posts
-        WHERE user_id = ?
-        ORDER BY created_at DESC
+        JOIN users
+            ON posts.user_id = users.id
+        WHERE posts.user_id = ?
+        ORDER BY posts.created_at DESC
     """, (user_id,))
 
     posts = cursor.fetchall()

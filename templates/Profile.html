@@ -46,9 +46,22 @@
         {{ username[0]|upper }}
     </div>
 
-    <button class="edit-btn" id="openEditProfile">
-        Edit Profile
-    </button>
+    {% if own_profile %}
+
+<button class="edit-btn" id="openEditProfile">
+    Edit Profile
+</button>
+
+{% else %}
+
+<button
+    class="edit-btn"
+    id="followBtn"
+    data-user-id="{{ profile_id }}">
+    Follow
+</button>
+
+{% endif %}
 
 </div>
 

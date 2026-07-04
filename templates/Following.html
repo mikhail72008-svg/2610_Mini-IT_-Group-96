@@ -43,54 +43,59 @@
 
                     <!-- Feed Area -->
                     <section class="feed-container">
-                        <article class="feed-post">
-                            <div class="feed-avatar avatar-blue">N</div>
-                            <div class="feed-post-body">
-                                <div class="feed-post-header">
-                                    <strong>Nadia Lim</strong>
-                                    <span>@nadia</span>
-                                    <span>8m</span>
-                                </div>
-                                <p>Our study group is meeting at CLC after lunch. Bring your tutorial questions and caffeine.</p>
-                                <div class="feed-actions">
-                                    <button type="button"><i class="bi bi-heart"></i><span>15</span></button>
-                                    <button type="button"><i class="bi bi-chat"></i><span>4</span></button>
-                                </div>
-                            </div>
-                        </article>
 
-                        <article class="feed-post">
-                            <div class="feed-avatar avatar-green">I</div>
-                            <div class="feed-post-body">
-                                <div class="feed-post-header">
-                                    <strong>Imran Hakim</strong>
-                                    <span>@imran</span>
-                                    <span>27m</span>
-                                </div>
-                                <p>Just uploaded my notes for data structures. They are messy, but the examples should help.</p>
-                                <div class="feed-actions">
-                                    <button type="button"><i class="bi bi-heart"></i><span>32</span></button>
-                                    <button type="button"><i class="bi bi-chat"></i><span>8</span></button>
-                                </div>
-                            </div>
-                        </article>
+{% if posts %}
 
-                        <article class="feed-post">
-                            <div class="feed-avatar avatar-red">L</div>
-                            <div class="feed-post-body">
-                                <div class="feed-post-header">
-                                    <strong>Li Wen</strong>
-                                    <span>@liwen</span>
-                                    <span>55m</span>
-                                </div>
-                                <p>FCI lobby has a booth for club signups today. Worth checking out between classes.</p>
-                                <div class="feed-actions">
-                                    <button type="button"><i class="bi bi-heart"></i><span>21</span></button>
-                                    <button type="button"><i class="bi bi-chat"></i><span>3</span></button>
-                                </div>
-                            </div>
-                        </article>
-                    </section>
+    {% for post in posts %}
+
+    <article class="feed-post">
+
+        <div class="feed-avatar avatar-blue">
+            {{ post.username[0]|upper }}
+        </div>
+
+        <div class="feed-post-body">
+
+            <div class="feed-post-header">
+                <strong>{{ post.username }}</strong>
+                <span>{{ post.time }}</span>
+            </div>
+
+            <p>{{ post.content }}</p>
+
+            <div class="feed-actions">
+
+                <button type="button">
+                    <i class="bi bi-heart"></i>
+                    <span>{{ post.likes }}</span>
+                </button>
+
+                <button type="button">
+                    <i class="bi bi-chat"></i>
+                    <span>{{ post.comments }}</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </article>
+
+    {% endfor %}
+
+{% else %}
+
+<div class="feed-post">
+    <div class="feed-post-body">
+        <p style="text-align:center;">
+            You're not following anyone yet.
+        </p>
+    </div>
+</div>
+
+{% endif %}
+
+</section>
                 </main>
             </div>
         </div>
